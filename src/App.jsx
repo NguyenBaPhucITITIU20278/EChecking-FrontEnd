@@ -1,30 +1,21 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { increment, decrement } from './redux/slides/counterSlide';
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { routes } from "./routes";
 
 export default function App() {
-  const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch();
 
   return (
-    <div>
-      <div>
-        <button
-          aria-label="Increment value"
-          onClick={() => dispatch(increment())}
-        >
-          Increment
-        </button>
-        <span>{count}</span>
-        <button
-          aria-label="Decrement value"
-          onClick={() => dispatch(decrement())}
-        >
-          Decrement
-        </button>
-      </div>
-    </div>
-  );
+    <>
+      <Router>
+        <Routes>
+          {routes.map((route) => {
+            const Page = route.page
+            return (
+              <Route key={Page} path={route.path} element={<Page />} />
+            )
+          })}
+        </Routes>
+      </Router>
+    </>
+  )
 }
 
