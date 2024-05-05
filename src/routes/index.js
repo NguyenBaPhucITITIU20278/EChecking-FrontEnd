@@ -1,6 +1,7 @@
 import LoginLecturer from "../pages/LoginLecturer";
 import LoginStudent from "../pages/LoginStudent";
 import NotFoundPage from "../pages/NotFoundPage";
+import StudentAccount from "../pages/StudentAccount";
 
 export const routes = [
     {
@@ -14,5 +15,9 @@ export const routes = [
     {
         path: '*',
         page: NotFoundPage,
+    },
+    {
+        path: '/studentAccount',
+        page: StudentAccount,
     }
 ]
