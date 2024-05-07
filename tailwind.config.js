@@ -34,11 +34,42 @@ export default {
       backgroundImage: {
         'hero': "url('assets/images/collection-background.svg')",
         'card': "url('assets/images/thumbnail-background.svg')",
+        'custom-gradient': "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)",
       },
       screens: {
         "wide": "1440px"
-      }
-    },
+      },
+      animation: {
+        blob: "blob 7s infinite",
+        gradient: "gradient 15s infinite",
+        "fade-in": "fade-in 0.5s ease-out"
+      },
+      keyframes: {
+        gradientA: {
+          '0%': { 'background-position': '0% 50%' },
+          '50%': { 'background-position': '100% 50%' },
+          '100%': { 'background-position': '0% 50%' },
+        },
+        blob: {
+          "0%": {
+            transform: "translate(0px, 0px) scale(1)",
+          },
+          "33%": {
+            transform: "translate(30px, -50px) scale(1.1)",
+          },
+          "66%": {
+            transform: "translate(-20px, 20px) scale(0.9)",
+          },
+          "100%": {
+            transform: "translate(0px, 0px) scale(1)",
+          },
+        },
+        "fade-in": {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 }
+        }
+      },
   },
   plugins: [],
+  }
 }

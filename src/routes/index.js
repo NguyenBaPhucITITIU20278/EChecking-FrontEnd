@@ -26,6 +26,7 @@ export const routes = [
         path: '/lecturer/dashboard/add-course',
         page: AddCoursePage,
         title: 'Add Course',
+        animatedBg: true,
         role: 'lecturer'
-    }
+    },
 ]
