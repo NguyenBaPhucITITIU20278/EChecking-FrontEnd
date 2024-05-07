@@ -35,6 +35,7 @@ export default {
         'hero': "url('assets/images/collection-background.svg')",
         'card': "url('assets/images/thumbnail-background.svg')",
         'custom-gradient': "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)",
+        'beams': "url('assets/images/beams.jpg')",
       },
       screens: {
         "wide": "1440px"

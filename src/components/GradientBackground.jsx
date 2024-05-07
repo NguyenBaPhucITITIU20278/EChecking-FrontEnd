@@ -11,6 +11,7 @@ const GradientBackground = ({ children }) => {
                     <div className=" fixed w-full h-full bg-blue-100 z-[-10]"></div>
                 </div>
             </div>
+            
             <div className='flex items-center justify-center align-middle h-screen '>
                 {children}
             </div>
