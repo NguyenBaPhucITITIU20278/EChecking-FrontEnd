@@ -12,10 +12,11 @@ export default function App() {
           {routes.map((route) => {
             const Page = route.page;
             const Background = route.animatedBg ? GradientBackground : Fragment;
+            const Header = route.header ? HeaderComponent : Fragment;
             return (
               <Route key={route.path} path={route.path} element={
                 <div className="flex flex-col min-w-screen w-screen h-screen">
-                  <HeaderComponent title={route.title ? route.title : null} role={route.role ? route.role : null} />
+                  <Header title={route.title ? route.title : null} role={route.role ? route.role : null} />
                   <Background>
                     <Page />
                   </Background>

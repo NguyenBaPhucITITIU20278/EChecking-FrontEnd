@@ -12,8 +12,8 @@ const HeaderComponent = ({ title, role }) => {
                         <img src={logo} alt="logo" className='w-auto h-20 items-center' />
                     </a>
                     <div className='hidden sm:flex flex-col gap-0.5 uppercase text-left justify-center font-montserrat font-bold text-gray-500'>
-                        <div className='text-lg'> {title} </div>
-                        <div className='text-sm'> {role} </div>
+                        <div className='text-lg uppercase'> {title} </div>
+                        <div className='text-sm capitalize'> {role} </div>
                     </div>
                 </div>
                 <div className='flex flex-row space-x-2 uppercase items-center text-lg pr-[18px] sm:pr-0'>

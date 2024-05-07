@@ -8,14 +8,16 @@ export const routes = [
     {
         path: '/lecturer',
         page: LoginLecturer,
-        title: 'Login',
-        role: 'Lecturer'
+        title: 'Login Page',
+        role: 'Lecturer',
+        header: true
     },
     {
         path: '/',
         page: LoginStudent,
-        title: 'Login',
-        role: 'Student'
+        title: 'Login Page',
+        role: 'Student',
+        header: true
     },
     {
         path: '*',
@@ -28,13 +30,15 @@ export const routes = [
         page: AddCoursePage,
         title: 'New Course',
         animatedBg: true,
-        role: 'lecturer'
+        role: 'lecturer',
+        header: true
     },
     {
         path: '/lecturer/dashboard/add-session',
         page: AddSessionPage,
         title: 'New Attendance',
         animatedBg: true,
-        role: 'lecturer'
+        role: 'lecturer',
+        header: true
     }
 ]
