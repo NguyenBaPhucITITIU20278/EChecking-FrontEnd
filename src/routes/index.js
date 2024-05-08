@@ -1,5 +1,6 @@
 import AddCoursePage from "../pages/AddCoursePage";
 import AddSessionPage from "../pages/AddSessionPage";
+import CourseInfoPage from "../pages/CourseInfoPage";
 import LoginLecturer from "../pages/LoginLecturer";
 import LoginStudent from "../pages/LoginStudent";
 import NotFoundPage from "../pages/NotFoundPage";
@@ -38,6 +39,13 @@ export const routes = [
         page: AddSessionPage,
         title: 'New Attendance',
         animatedBg: true,
+        role: 'lecturer',
+        header: true
+    },
+    {
+        path: '/lecturer/dashboard/course',
+        page: CourseInfoPage,
+        title: 'Course Information',
         role: 'lecturer',
         header: true
     }
