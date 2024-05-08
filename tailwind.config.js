@@ -3,6 +3,7 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
   ],
   theme: {
     fontSize: {
@@ -14,6 +15,7 @@ export default {
       '2xl': ['24px', '29.26px'],
       '3xl': ['28px', '50px'],
       '4xl': ['48px', '58px'],
+      '5xl': ['56px', '68px'],
       '8xl': ['96px', '106px']
     },
     extend: {
@@ -42,4 +44,5 @@ export default {
     },
   },
   plugins: [],
+  darkMode: '',
 }
