@@ -1,7 +1,7 @@
 import LoginLecturer from "../pages/LoginLecturer";
 import LoginStudent from "../pages/LoginStudent";
 import NotFoundPage from "../pages/NotFoundPage";
-
+import StudentDashboard from "../pages/StudentDashboard";
 export const routes = [
     {
         path: '/lecturer',
@@ -14,5 +14,9 @@ export const routes = [
     {
         path: '*',
         page: NotFoundPage,
+    },
+    {
+        path: '/student/dashboard',
+        page: StudentDashboard,
     }
 ]
