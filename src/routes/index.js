@@ -2,6 +2,7 @@ import LoginLecturer from "../pages/LoginLecturer";
 import LoginStudent from "../pages/LoginStudent";
 import NotFoundPage from "../pages/NotFoundPage";
 import StudentDashboard from "../pages/StudentDashboard";
+import StudentSuccess from "../pages/StudentSuccess";
 export const routes = [
     {
         path: '/lecturer',
@@ -16,7 +17,14 @@ export const routes = [
         page: NotFoundPage,
     },
     {
+        
         path: '/student/dashboard',
         page: StudentDashboard,
+    },
+    {
+        
+        path: '/success',
+        page: StudentSuccess,
     }
+
 ]
