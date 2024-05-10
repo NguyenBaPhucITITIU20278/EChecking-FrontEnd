@@ -103,7 +103,7 @@ export default function StudentAccount() {
     <div>
       {success && (
         <div className="fixed z-10 inset-0 overflow-y-auto" id="my-modal">
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div
               className="fixed inset-0 transition-opacity"
               aria-hidden="true"
@@ -168,7 +168,7 @@ export default function StudentAccount() {
       )}
       {confirm && (
         <div id="YOUR_ID" className="fixed z-50 inset-0 overflow-y-auto">
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div
               className="fixed inset-0 transition-opacity"
               aria-hidden="true"
@@ -274,7 +274,7 @@ export default function StudentAccount() {
 
       {warning && (
         <div className="fixed z-10 inset-0 overflow-y-auto" id="my-modal">
-          <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+          <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div
               className="fixed inset-0 transition-opacity"
               aria-hidden="true"
@@ -340,50 +340,50 @@ export default function StudentAccount() {
         </div>
       )}
 
-      <nav className="h-24 w-full bg-gray-700"></nav>
-      <main className="h-dvh w-full bg-bg2 px-48 bg-cover bg-no-repeat">
+      <nav className="h-24 w-full bg-gray-700 sm:bg-sky-700 md:bg-lime-500 lg:bg-red-500 2xl:bg-teal-600 xl:bg-orange-500"></nav>
+      <main className="h-dvh w-full bg-bg2 xl:px-48 bg-cover bg-no-repeat px-11">
         <div className="h-2/6 w-full static flex items-center justify-center">
           <img
             src={avatar}
             className="w-64 h-64 bg-white absolute flex-1 p-5 border-2 border-black rounded-full"
           />
         </div>
-        <div className="h-1/6 w-full static flex items-center justify-center">
-          <h1 className="text-5xl font-bold">Update Information</h1>
+        <div className="h-1/6 w-full static flex items-center justify-center text-center">
+          <h1 className="xl:text-5xl font-bold text-4xl">Update Information</h1>
         </div>
-        <div className=" h-2/6 w-full static grid grid-cols-2 items-center justify-items-center">
-          <div className="w-3/4 h-full justify-center items-center flex flex-col">
-            <p className="text-3xl m-5 self-start">Full Name:</p>
+        <div className=" h-2/6 w-full static grid grid-cols-2 gap-x-32 items-center justify-items-center">
+          <div className="w-full h-full justify-center items-center flex flex-col">
+            <lable className="xl:text-3xl xl:m-5 self-start text-2xl m-3">Full Name:</lable>
             <input
               type="text"
               placeholder="Fist-Middle-Last Name........................................."
-              className="bg-white h-2/5 w-full text-3xl p-2 border-2 border-black rounded-2xl placeholder-center"
+              className="bg-slate-100 xl:h-2/5 w-full xl:text-3xl p-2 border-2 border-black rounded-2xl hover:border-sky-500 focus-within:bg-white text-2xl h-1/3"
               value={inputName}
               onChange={handleInputName}
             ></input>
           </div>
-          <div className="w-3/4 h-full justify-center items-center flex flex-col">
-            <p className="text-3xl m-5 self-start">Phone Number:</p>
+          <div className="w-full h-full justify-center items-center flex flex-col">
+            <p className="xl:text-3xl xl:m-5 self-start text-2xl m-3">Phone Number:</p>
             <input
               type="text"
               placeholder="10 Digits......................................................................"
-              className="bg-white h-2/5 w-full text-3xl p-2 border-2 border-black rounded-2xl "
+              className="bg-slate-100 xl:h-2/5 w-full xl:text-3xl p-2 border-2 border-black rounded-2xl hover:border-sky-500 focus-within:bg-white text-2xl h-1/3"
               value={inputPhoneNumber}
               onChange={handleInputPhoneNumber}
             ></input>
           </div>
-          <div className="w-3/4 h-full justify-center items-center flex flex-col">
-            <p className="text-3xl m-5 self-start">Address:</p>
+          <div className="w-full h-full justify-center items-center flex flex-col">
+            <p className="xl:text-3xl xl:m-5 self-start text-2xl m-3">Address:</p>
             <input
               type="text"
               placeholder="........................................................................................"
-              className="bg-white h-2/5 w-full text-3xl p-2 border-2 border-black rounded-2xl "
+              className="bg-slate-100 xl:h-2/5 w-full xl:text-3xl p-2 border-2 border-black rounded-2xl hover:border-sky-500 focus-within:bg-white text-2xl h-1/3"
               value={inputAddress}
               onChange={handleInputAddress}
             ></input>
           </div>
-          <div className="w-3/4 h-full justify-center items-center flex flex-col">
-            <p className="text-3xl m-5 self-start">Date Of Birth:</p>
+          <div className="w-full h-full justify-center items-center flex flex-col">
+            <p className="xl:text-3xl xl:m-5 self-start text-2xl m-3">Date Of Birth:</p>
             <Datepicker
               useRange={false}
               asSingle={true}
@@ -391,25 +391,26 @@ export default function StudentAccount() {
               onChange={handleDateChange}
               showFooter={true}
               displayFormat={"DD/MM/YYYY"}
+              popoverDirection="up" 
               placeholder={"DD/MM/YYYY"}
               readOnly={true}
-              inputClassName="w-full text-3xl p-2 border-2 border-black rounded-2xl"
-              toggleClassName="absolute bg-blue-300 rounded-r-2xl border-black border-2 text-white right-0 h-full px-3 text-gray-400 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed"
+              inputClassName="w-full xl:text-3xl text-2xl p-2 border-2 border-black rounded-2xl bg-slate-100 hover:border-sky-500 focus-within:bg-white"
+              toggleClassName="absolute bg-sky-500 rounded-r-2xl border-black border-2 text-white right-0 h-full px-3 text-gray-400 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed hover:bg-sky-600"
             />
           </div>
         </div>
         <div className="h-1/6 w-full static grid grid-cols-2 items-center">
           <button
-            className="w-1/4 h-2/5 bg-slate-300 rounded-2xl shadow-xl drop-shadow-xl flex items-center justify-center m-5 justify-self-start hover:bg-white transition ease-in-out hover:duration:300 focus:ring focus:ring-gray-100"
+            className="xl:w-1/3 w-1/2 h-2/5 bg-slate-300 rounded-2xl shadow-xl drop-shadow-xl flex items-center justify-center m-5 justify-self-start hover:bg-white transition ease-in-out hover:duration:300 focus:ring focus:ring-gray-100 active:bg-zinc-500 active:text-slate-50"
             onClick={checkPresentInfomation}
           >
-            <p className="text-3xl">Cancel</p>
+            <p className="xl:text-3xl text-2xl">Cancel</p>
           </button>
           <button
-            className="w-1/4 h-2/5 bg-sky-400 rounded-2xl shadow-xl drop-shadow-xl flex items-center justify-center m-5 justify-self-end hover:bg-white transition ease-in-out hover:duration:300 focus:ring focus:ring-gray-100"
+            className="xl:w-1/3 w-1/2 h-2/5 bg-sky-400 rounded-2xl shadow-xl drop-shadow-xl flex items-center justify-center m-5 justify-self-end hover:bg-white transition ease-in-out hover:duration:300 focus:ring focus:ring-gray-100 active:bg-sky-600 active:text-slate-50"
             onClick={checkValidInfomation}
           >
-            <p className="text-3xl">Save Change</p>
+            <p className="xl:text-3xl text-2xl">Save Change</p>
           </button>
         </div>
       </main>
