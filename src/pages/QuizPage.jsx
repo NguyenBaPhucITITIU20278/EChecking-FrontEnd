@@ -1,4 +1,5 @@
 import React from 'react'
+import { DownloadSimple } from '@phosphor-icons/react'
 import BackgroundImage from '../assets/BGROUND.jpg'; // Import the background image
 
 
@@ -29,7 +30,7 @@ const QuizPage = () => {
                     <div className="flex justify-between items-center mt-4 ml-12">
                         <div>
                             <div className="text-xl text-gray-700 ml-24 font-montserrat">Attach File
-
+                            <DownloadSimple size={32} className=" ml-10" />
                             </div>
                             <button className="w-72 h-8 bg-gray-300 rounded flex flex-col justify-center items-center mt-4 transform transition duration-300 hover:scale-105" style={{ boxShadow: '0px 2px 4px rgba(0.5, 0.5, 0.5, 0.5)' }}>
                                 <p className="text-lg text-black font-montserrat" style={{ marginBottom: '2px' }}>Browse Local Files</p>
