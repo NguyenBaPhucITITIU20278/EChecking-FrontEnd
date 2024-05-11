@@ -15,7 +15,7 @@ export default function App() {
             const Background = route.animatedBg ? GradientBackground : Fragment;
             return (
               <Route key={route.path} path={route.path} element={
-                <div className="flex flex-col min-w-screen w-screen h-screen">
+                <div className="flex flex-col w-screen h-screen">
                   {route.header && <HeaderComponent title={route.title} role={route.role} />}
                   <Background>
                     <Page />
