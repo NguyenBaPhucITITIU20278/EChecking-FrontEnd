@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import logo from '../assets/Logo.svg'
-import { CaretDown, List, SignOut, UserCircle, X } from '@phosphor-icons/react'
+import { CaretDown, Faders, List, SignOut, UserCircle, X } from '@phosphor-icons/react'
 
 
 const HeaderComponent = ({ title, role }) => {
@@ -30,7 +30,7 @@ const HeaderComponent = ({ title, role }) => {
                         <ul className='sm:flex hidden bg-slate-100 rounded-lg shadow-xl p-4 flex-col gap-3 justify-start border-2 font-poppins'>
                             <li>
                                 <a href="" className='flex flex-row items-center gap-2'>
-                                    <UserCircle size={20} color="#040c1e" />
+                                    <Faders size={20} color="#040c1e" className='rotate-90' />
                                     <span>Account</span>
                                 </a>
                             </li>
