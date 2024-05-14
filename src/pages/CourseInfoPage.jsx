@@ -50,6 +50,7 @@ const CourseInfoPage = () => {
                 <div id='course-info' className='px-6 py-4 flex flex-col sm:gap-1 border-[1px] border-gray-700 bg-white w-full relative'>
                     <h1 className='font-poppins sm:text-4xl text-2xl items-center flex flex-row gap-4'>
                         <span>Course Name</span>
+                        <span className='sm:text-2xl text-xl  uppercase'>COURSEID</span>
                     </h1>
                     <div className='bg-white rounded-lg h-max  2xl:w-[1400px]'>
                         <div className='text-justify font-palanquin sm:text-xl text-sm'>
