@@ -19,6 +19,12 @@ const CourseInfoPage = () => {
     };
     const handleCancel = () => {
         setIsModalOpen(false);
+        if (isEdit === true) {
+            setIsEdit(false);
+        }
+        if (isEditInfo === true) {
+            setIsEditInfo(false);
+        }
     };
 
     const showEdit = () => {

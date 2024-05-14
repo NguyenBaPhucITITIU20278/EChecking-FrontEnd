@@ -4,11 +4,15 @@ import React from 'react'
 const AddCoursePage = () => {
     return (
         <>
-            <div className='flex justify-center items-center h-full w-full flex-col'>
-                <div className='animate-fade-in sm:w-[502px] w-full sm:h-[360px] h-full backdrop bg-white bg-opacity-40 rounded sm:p-3 px-6 pt-2  border border-gray-300 shadow-lg'>
+            <div className='flex justify-center items-center h-screen w-full flex-col'>
+                <div className='animate-fade-in sm:w-[502px] w-full sm:h-[450px] h-full backdrop bg-white bg-opacity-40 rounded sm:p-3 px-6 pt-2  border border-gray-300 shadow-lg'>
                     <form action="#" className='space-y-2 h-full'>
                         <legend className='sm:hidden pt-10 pb-8 text-[28px] text-center font-montserrat text-gray-600 font-bold '>CREATE NEW CLASS</legend>
-                        <label htmlFor="courseName" className="block sm:text-2xl text-xl font-montserrat leading-6 text-black">Class Name</label>
+                        <label htmlFor="courseID" className="block sm:text-2xl text-xl font-montserrat leading-6 text-black">Course ID</label>
+                        <div className="mt-2">
+                            <input id="courseID" name="courseID" placeholder='ID of the course' type="text" autoComplete="courseID" required className="font-palanquin block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-0 focus:ring-indigo-200 sm:text-sm sm:leading-6" />
+                        </div>
+                        <label htmlFor="courseName" className="block sm:text-2xl text-xl font-montserrat leading-6 text-black">Course Name</label>
                         <div className="mt-2">
                             <input id="courseName" name="courseName" placeholder='Name of the class' type="courseName" autoComplete="courseName" required className="font-palanquin block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                         </div>
