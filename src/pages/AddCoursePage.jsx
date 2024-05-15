@@ -54,7 +54,7 @@ const AddCoursePage = () => {
                                 <span>Return</span>
                             </div>
                         </button>
-                        <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat  w-1/2 h-10 tracking-wider rounded-sm items-center transform shadow cursor-pointer">
+                        <button onClick={handleCreate} className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat  w-1/2 h-10 tracking-wider rounded-sm items-center transform shadow cursor-pointer">
                             <div className='flex flex-row justify-center'>
                                 <span className=''>Create</span>
                             </div>
