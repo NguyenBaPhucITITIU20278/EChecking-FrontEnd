@@ -4,7 +4,7 @@ import React from 'react'
 const AddCoursePage = () => {
     return (
         <>
-            <div className='flex justify-center items-center h-screen w-full flex-col'>
+            <div className='flex justify-center items-center h-full w-full flex-col'>
                 <div className='animate-fade-in sm:w-[502px] w-full sm:h-[450px] h-full backdrop bg-white bg-opacity-40 rounded sm:p-3 px-6 pt-2  border border-gray-300 shadow-lg'>
                     <form action="#" className='space-y-2 h-full'>
                         <legend className='sm:hidden pt-10 pb-8 text-[28px] text-center font-montserrat text-gray-600 font-bold '>CREATE NEW CLASS</legend>
@@ -28,9 +28,6 @@ const AddCoursePage = () => {
                             </button>
                             <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat  w-1/2 h-10 tracking-wider rounded-sm items-center transform shadow cursor-pointer">
                                 <div className='flex flex-row justify-center'>
-                                    {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                                    </svg> */}
                                     <span className=''>Create</span>
                                 </div>
                             </button>

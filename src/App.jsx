@@ -16,8 +16,8 @@ export default function App() {
             return (
               <Route key={route.path} path={route.path} element={
                 <>
-                  {route.header && <HeaderComponent title={route.title} role={route.role} />}
                   <div className="flex flex-col w-full h-screen">
+                    {route.header && <HeaderComponent title={route.title} role={route.role} />}
                     <Background>
                       <Page />
                     </Background>
