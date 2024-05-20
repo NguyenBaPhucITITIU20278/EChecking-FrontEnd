@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import CourseNavbar from '../components/CourseComponents/CourseNavbar'
 import BreadcrumbComponent from '../components/BreadcrumbComponent'
 import SessionCard from '../components/CourseComponents/SessionCard'
-import { Check, CheckFat, NotePencil, Pen, Pencil } from '@phosphor-icons/react'
-import { Modal, Form, Input } from 'antd'
+import { CheckFat, NotePencil } from '@phosphor-icons/react'
+import { Modal } from 'antd'
 
 
 const CourseInfoPage = () => {

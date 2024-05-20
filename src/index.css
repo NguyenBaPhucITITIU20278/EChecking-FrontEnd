@@ -28,6 +28,16 @@
     .course-modal .ant-modal-content {
         @apply bg-opacity-85 bg-white rounded-sm p-8
     }
+
+    .antd-table .ant-table{
+        .ant-table-container {
+            @apply bg-red-800 bg-opacity-50;
+
+            .thead {
+                @apply bg-red-800 bg-opacity-50
+            }
+        }
+    }
 }
 
 @layer utilities {

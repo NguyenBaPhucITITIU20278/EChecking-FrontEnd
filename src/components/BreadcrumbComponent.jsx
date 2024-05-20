@@ -7,7 +7,7 @@ const iconMapping = {
     lecturer: Student,
     student: User,
     course: Folder,
-    attentdance: File
+    session: File
 }
 
 const BreadcrumbComponent = () => {
@@ -19,7 +19,8 @@ const BreadcrumbComponent = () => {
 
     return (
         <div className='flex  w-max px-4 rounded-lg'>
-            <Breadcrumbs maxItems={3} itemsBeforeCollapse={1} itemsAfterCollapse={2}
+            <Breadcrumbs
+                // maxItems={3} itemsBeforeCollapse={1} itemsAfterCollapse={2}
                 itemClasses={{
                     separator: " pl-4",
                 }} >

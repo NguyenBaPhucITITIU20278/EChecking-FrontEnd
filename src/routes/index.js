@@ -4,6 +4,7 @@ import CourseInfoPage from "../pages/CourseInfoPage";
 import LoginLecturer from "../pages/LoginLecturer";
 import LoginStudent from "../pages/LoginStudent";
 import NotFoundPage from "../pages/NotFoundPage";
+import SessionInfoPage from "../pages/SessionInfoPage";
 
 export const routes = [
     {
@@ -46,6 +47,13 @@ export const routes = [
         path: '/lecturer/dashboard/course',
         page: CourseInfoPage,
         title: 'Course Information',
+        role: 'lecturer',
+        header: true
+    },
+    {
+        path: '/lecturer/dashboard/course/session',
+        page: SessionInfoPage,
+        title: 'Session Information',
         role: 'lecturer',
         header: true
     }
