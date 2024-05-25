@@ -37,7 +37,7 @@ const SessionInfoPage = () => {
                     </button>
                 </div> */}
                 <div id='table-container' className='pt-12 flex gap-8'>
-                    <TableComponent className='antd-table'/>
+                    <TableComponent className=''/>
                 </div>
             </div>
         </div>
