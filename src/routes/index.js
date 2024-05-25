@@ -8,6 +8,7 @@ import DashboardLecturer from "../pages/DashboardLecturer";
 import QuizPage from "../pages/QuizPage";
 import DashboardStudent from "../pages/DashboardStudent";
 import SessionInfoPage from "../pages/SessionInfoPage";
+import StudentAccount from "../pages/StudentAccount";
 
 export const routes = [
     {
@@ -71,5 +72,9 @@ export const routes = [
         title: 'Session Information',
         role: 'lecturer',
         header: true
+    },
+    {
+        path: '/studentAccount',
+        page: StudentAccount,
     }
 ]
