@@ -45,6 +45,7 @@ export default {
         'bg2' : "url('./assets/background2.png')",
         'custom-gradient': "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)",
         'beams': "url('assets/images/beams.jpg')",
+        'bg2':"url('assets/background2.jpg')",
       },
       screens: {
         "wide": "1440px"

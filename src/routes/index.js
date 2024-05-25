@@ -4,6 +4,8 @@ import CourseInfoPage from "../pages/CourseInfoPage";
 import LoginLecturer from "../pages/LoginLecturer";
 import LoginStudent from "../pages/LoginStudent";
 import NotFoundPage from "../pages/NotFoundPage";
+import StudentDashboard from "../pages/StudentDashboard";
+import StudentSuccess from "../pages/StudentSuccess";
 import DashboardLecturer from "../pages/DashboardLecturer";
 import QuizPage from "../pages/QuizPage";
 import DashboardStudent from "../pages/DashboardStudent";
@@ -28,6 +30,18 @@ export const routes = [
     {
         path: '*',
         page: NotFoundPage,
+    },
+    {
+        
+        path: '/student/dashboard',
+        page: StudentDashboard,
+    },
+    {
+        
+        path: '/success',
+        page: StudentSuccess,
+    }
+
     },
     {
         path: '/lecturer/dashboard',
