@@ -31,11 +31,7 @@
 
     .antd-table .ant-table{
         .ant-table-container {
-            @apply bg-red-800 bg-opacity-50;
-        }
-
-        .ant {
-            @apply bg-red-800 bg-opacity-50
+            @apply bg-white bg-opacity-50;
         }
     }
 }
