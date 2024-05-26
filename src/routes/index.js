@@ -24,6 +24,27 @@ export const routes = [
     {
         path: '*',
         page: NotFoundPage,
+    },
+    {
+        
+        path: '/student/dashboard',
+        page: StudentDashboard,
+    },
+    {
+        path: '/success',
+        page: StudentSuccess,
+    },
+    {
+        path: '/lecturer/dashboard',
+        page: DashboardLecturer,
+    },
+    {
+        path: '/student/quizpage',
+        page: QuizPage,
+    },
+    {
+        path: '/student/dashboard',
+        page: DashboardStudent,
         title: '404',
         role: '404'
     },
