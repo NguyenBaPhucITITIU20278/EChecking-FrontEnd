@@ -4,6 +4,8 @@ const {nextui} = require("@nextui-org/react");
 export default {
   content: [
     "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./node_modules/react-tailwindcss-datepicker/dist/index.esm.js",
     "./src/**/*.{js,jsx,}",
   ],
   presets: [nextui()],
@@ -17,6 +19,7 @@ export default {
       '2xl': ['24px', '29.26px'],
       '3xl': ['28px', '50px'],
       '4xl': ['48px', '58px'],
+      '5xl': ['56px', '68px'],
       '8xl': ['96px', '106px']
     },
     extend: {
@@ -39,8 +42,10 @@ export default {
       backgroundImage: {
         'hero': "url('assets/images/collection-background.svg')",
         'card': "url('assets/images/thumbnail-background.svg')",
+        'bg2' : "url('./assets/background2.png')",
         'custom-gradient': "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)",
         'beams': "url('assets/images/beams.jpg')",
+        'bg2':"url('assets/background2.jpg')",
       },
       screens: {
         "wide": "1440px"
@@ -76,6 +81,8 @@ export default {
         }
       },
   },
+  plugins: [],
+  darkMode: '',
   plugins: [
     nextui()
   ],
