@@ -29,9 +29,70 @@
         @apply bg-opacity-85 bg-white rounded-sm p-8
     }
 
-    .antd-table .ant-table{
-        .ant-table-container {
-            @apply bg-white bg-opacity-50;
+    .antd-table {
+        .ant-table {
+            .ant-table-container {
+                @apply bg-white rounded-none shadow-xl;
+            }
+
+            table {
+                @apply border-collapse border border-black ;
+
+                thead {
+                    @apply border-opacity-70 backdrop-blur-sm bg-gradient-to-tr from-violet-400 to-sky-200 border-b border-black;
+                }
+
+                thead > tr > .ant-table-cell {
+                    @apply bg-transparent hover:bg-transparent text-black border-b-2 border-black  ;
+                }
+
+                th:nth-child(1), td:nth-child(1) {
+                    @apply w-[40px] tabular-nums  ;
+                }
+
+                th:nth-child(2), td:nth-child(2) {
+                    @apply w-[45px];
+                }
+
+                th:nth-child(3), td:nth-child(3) {
+                    @apply w-[200px];
+                }
+
+                th:nth-child(4), td:nth-child(4) {
+                    @apply w-[350px];
+                }
+
+                th:nth-child(5), td:nth-child(5) {
+                    @apply w-[150px];
+                }
+
+                thead > tr:first-child > *:first-child,
+                thead > tr:first-child > *:last-child {
+                    border-start-start-radius: 0px;
+                    border-start-end-radius: 0px;
+                }
+
+
+                .ant-table-cell {
+                    @apply rounded-s-none border-none;
+                }
+            }
+        }
+
+        /* .table-wrapper .ant-table-container table > thead > tr:first-child > *:first-child {
+            border-start-start-radius: 0px;
+        } */
+
+        .ant-pagination-item {
+            @apply bg-white rounded-none shadow-sm border-[1px] border-black;
+
+            a {
+                @apply text-black
+            }
+        }
+
+        .ant-pagination-prev & .ant-pagination-next {
+            @apply bg-white rounded-none shadow-sm border-[1px] border-black;
         }
     }
 }
