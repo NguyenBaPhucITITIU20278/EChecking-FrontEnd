@@ -11,6 +11,7 @@ import QuizPage from "../pages/QuizPage";
 import DashboardStudent from "../pages/DashboardStudent";
 import SessionInfoPage from "../pages/SessionInfoPage";
 import StudentAccount from "../pages/StudentAccount";
+import Lecturer from "../pages/Lecturer";
 
 export const routes = [
     {
@@ -53,6 +54,13 @@ export const routes = [
         page: DashboardStudent,
         title: '404',
         role: '404'
+    },
+    {
+        path: '/lecturer/home',
+        page: Lecturer,
+        title: 'Course List',
+        role: 'lecturer',
+        header: true
     },
     {
         path: '/lecturer/dashboard/add-course',

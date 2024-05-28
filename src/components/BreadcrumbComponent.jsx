@@ -7,7 +7,8 @@ const iconMapping = {
     lecturer: Student,
     student: User,
     course: Folder,
-    session: File
+    session: File,
+    home: House
 }
 
 const BreadcrumbComponent = () => {
