@@ -3,9 +3,10 @@ import BreadcrumbComponent from '../components/BreadcrumbComponent'
 import { PlusSquare } from '@phosphor-icons/react'
 import CourseCard from '../components/LecturerComponents/CourseCard'
 import EmptyCard from '../components/LecturerComponents/EmptyCard'
+import { calc } from 'antd/es/theme/internal'
 
 const Lecturer = () => {
-    const courseList = Array.from({ length: 20 }, (_, index) => index);
+    const courseList = Array.from({ length: 23 }, (_, index) => index);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 8;
 
@@ -21,8 +22,9 @@ const Lecturer = () => {
 
     return (
         <div className={`${courseList > 8 ? `sm:h-full` : `sm:h-svh`} sm:flex hidden bg-gradient-to-tr from-violet-400 to-sky-200 p-4 flex-col gap-2 `}>
+            <BreadcrumbComponent />
+
             <div id="title" className='animate-fade-in flex flex-col px-4'>
-                <BreadcrumbComponent />
                 <div className='flex flex-row items-center'>
                     <span className='text-black sm:text-4xl text-2xl font-poppins uppercase px-4'>
                         Course List
@@ -32,13 +34,16 @@ const Lecturer = () => {
                     </button>
                 </div>
             </div>
-            <div id="card-container" className='pt-4 px-8 justify-center flex flex-wrap w-full h-[700px] gap-8'>
+            {/* fix animation later */}
+            <div id="card-container" className='pt-2 px-8 justify-center items-center flex flex-wrap w-full h-[700px] gap-8 transition-all'>
                 {currentCourses.map((course, index) => (
-                    <CourseCard key={index} />
+                    <div className={`transition delay-[${index * 1000}ms]`} key={`${currentPage}-${index}`}>
+                        <CourseCard />
+                    </div>
                 ))}
-                {/* <EmptyCard /> */}
+                {currentPage === totalPages ? <div className='animate-fade'><EmptyCard /></div> : null}
             </div>
-            <div className='flex gap-4 justify-center'>
+            <div className='flex gap-4 pt-4 justify-center'>
                 {Array.from({ length: totalPages }, (_, index) => (
                     <button
                         className={` rounded-lg border border-black py-2 px-6 font-poppins tabular-nums w-[60px] ${currentPage === index + 1 ? 'bg-blue-200 scale-110' : 'bg-white'} transition duration-200 ease-in-out`}
@@ -47,6 +52,7 @@ const Lecturer = () => {
                     </button>
                 ))}
             </div>
+
         </div>
     )
 }

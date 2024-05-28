@@ -3,7 +3,7 @@ import React from 'react'
 
 const CourseCard = () => {
     return (
-        <div href="" className='sm:p-5 p-4 bg-blue-50 h-max sm:w-[420px] rounded-xl shadow-xl overflow border border-slate-500'>
+        <div href="" className='sm:p-5 p-4 bg-blue-50 h-max sm:w-[420px] rounded-xl shadow-xl overflow border border-slate-500 animate-fade'>
             <div className='flex flex-col gap-2'>
                 <div className=' relative flex justify-center'>
                     <span className='font-poppins text-xl uppercase'>
