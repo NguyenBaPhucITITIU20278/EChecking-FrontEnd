@@ -53,7 +53,8 @@ export default {
       animation: {
         blob: "blob 7s infinite",
         gradient: "gradient 15s infinite",
-        "fade-in": "fade-in 0.5s ease-out"
+        "fade-in": "fade-in 0.5s ease-out",
+        fade: 'fadeIn .5s ease-in-out',
       },
       keyframes: {
         gradientA: {
@@ -78,7 +79,11 @@ export default {
         "fade-in": {
           '0%': { opacity: 0 },
           '100%': { opacity: 1 }
-        }
+        },
+        fadeIn: {
+					from: { opacity: 0 },
+					to: { opacity: 1 },
+				},
       },
   },
   plugins: [],
