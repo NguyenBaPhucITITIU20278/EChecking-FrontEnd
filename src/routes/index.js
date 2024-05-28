@@ -12,6 +12,7 @@ import DashboardStudent from "../pages/DashboardStudent";
 import SessionInfoPage from "../pages/SessionInfoPage";
 import StudentAccount from "../pages/StudentAccount";
 import Lecturer from "../pages/Lecturer";
+import ReviewCode from "../pages/ReviewCode";
 
 export const routes = [
     {
@@ -89,6 +90,13 @@ export const routes = [
         path: '/lecturer/dashboard/course/session',
         page: SessionInfoPage,
         title: 'Session Information',
+        role: 'lecturer',
+        header: true
+    },
+    {
+        path: '/lecturer/dashboard/course/session/review',
+        page: ReviewCode,
+        title: 'Quiz',
         role: 'lecturer',
         header: true
     },
