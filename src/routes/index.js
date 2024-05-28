@@ -40,8 +40,6 @@ export const routes = [
         
         path: '/success',
         page: StudentSuccess,
-    }
-
     },
     {
         path: '/lecturer/dashboard',
