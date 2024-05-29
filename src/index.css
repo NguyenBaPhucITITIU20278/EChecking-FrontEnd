@@ -26,6 +26,11 @@
         -webkit-text-stroke: 2px black;
     }
 
+    .text-stroke-purple {
+        -webkit-text-stroke: 2px purple;
+    }
+
+
     .hinside {
         @apply h-[calc(100%-133px)];
     }
