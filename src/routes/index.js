@@ -27,6 +27,7 @@ export const routes = [
         page: LoginStudent,
         title: 'Login Page',
         role: 'Student',
+        animatedBg: true,
         header: true
     },
     {

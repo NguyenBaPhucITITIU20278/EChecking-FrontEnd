@@ -63,7 +63,7 @@ export default {
         '9': '900ms',
       },
       animation: {
-        blob: "blob 7s ease-in-out",
+        blob: "blob 7s ease-in-out infinite",
         gradient: "gradient 15s infinite",
         "fade-in": "fade-in 0.5s ease-out",
         fade: 'fadeIn .5s ease-in-out',

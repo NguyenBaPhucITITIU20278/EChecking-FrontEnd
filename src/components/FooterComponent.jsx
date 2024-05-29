@@ -3,9 +3,10 @@ import React from 'react'
 const FooterComponent = () => {
     return (
         <footer className='bg-white w-full flex justify-center p-4'>
-            <span className='font-poppins text-sm'>
-                © 2024 E-Checking System Inc. User contributions licensed under CC BY-SA.
-            </span>
+            <div className='font-poppins flex flex-row text-sm'>
+                <div className='flex'>© 2024 E-Checking System Inc.</div>&nbsp;
+                <div className='hidden sm:flex'>User contributions licensed under CC BY-SA.</div>
+            </div>
         </footer>
     )
 }
