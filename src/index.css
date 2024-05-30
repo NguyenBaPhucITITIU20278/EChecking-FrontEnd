@@ -40,8 +40,12 @@
     }
 
     .course-modal .ant-modal-content {
-        @apply bg-opacity-85 bg-white rounded-sm p-8
+        @apply bg-opacity-85 bg-white rounded-xl p-8
     }
+
+    .session-success-modal .ant-modal-content {
+        @apply bg-opacity-85 bg-green-200 rounded-xl sm:w-[800px] w-[calc(100vw-30px)] sm:p-10 p-4
+    } 
 
     .antd-table {
         .ant-table {
