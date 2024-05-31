@@ -1,4 +1,4 @@
-import { Eye, EyeSlash } from '@phosphor-icons/react'
+import { ExclamationMark, Eye, EyeSlash, Question } from '@phosphor-icons/react'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -15,8 +15,8 @@ const LoginLecturer = () => {
         setPasswordVisible(!passwordVisible);
     }
 
-    const goToCourseInfo = () => {
-        navigate('/lecturer/dashboard/course')
+    const goToStudent = () => {
+        navigate('http://localhost:5173/')
     }
     return (
         <>
@@ -58,7 +58,7 @@ const LoginLecturer = () => {
                     <span>
                         try as&nbsp;
                     </span>
-                    <a href='' className='text-blue-500 underline'>
+                    <a href='' className='text-blue-500 underline' onClick={goToStudent}>
                         Student!
                     </a>
                 </div>

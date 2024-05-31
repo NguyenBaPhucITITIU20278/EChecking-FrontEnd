@@ -54,7 +54,11 @@ export const routes = [
     },
     {
         path: '/student/quiz',
-        page: QuizPage, 
+        page: QuizPage,
+        animatedBg: true,
+        title: 'Student Dashboard',
+        role: 'student',
+        header: true
     },
     {
         path: '/student',
