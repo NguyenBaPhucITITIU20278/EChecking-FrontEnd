@@ -5,6 +5,7 @@ import GradientBackground from "./components/GradientBackground";
 import { Fragment } from "react";
 import { NextUIProvider } from "@nextui-org/react";
 import FooterComponent from "./components/FooterComponent";
+import { Helmet } from "react-helmet";
 
 export default function App() {
   return (
@@ -18,6 +19,9 @@ export default function App() {
             return (
               <Route key={route.path} path={route.path} element={
                 <>
+                  <Helmet>
+                    <title>{route.title}</title>
+                  </Helmet>
                   <div className="flex flex-col w-full h-svh">
                     {route.header && <HeaderComponent title={route.title} role={route.role} />}
                     <Background>
