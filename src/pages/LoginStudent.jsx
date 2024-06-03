@@ -2,7 +2,7 @@ import { Eye, EyeSlash } from '@phosphor-icons/react'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMutationHook } from '../hooks/useMutationHook'
-import { loginUser, getDetailStudent } from '../services/StudentService'
+import * as StudentService from '../services/StudentService'
 import { jwtDecode } from 'jwt-decode';
 import { useDispatch } from 'react-redux'
 import { updateStudent } from '../redux/slices/studentSlice'
@@ -13,27 +13,28 @@ const LoginStudent = () => {
     const [studentID, setStudentID] = useState('')
     const [password, setPassword] = useState('')
 
-
-    const handleOnChangeID = (e) => {
-        setStudentID(e.target.value);
-    }
-    
-    const handleOnChangePassword = (e) => {
-        setPassword(e.target.value);
-    }
-    
-    const [passwordVisible, setPasswordVisible] = useState(false);
-    const togglePasswordVisibility = () => {
-        setPasswordVisible(!passwordVisible);
-    }
-
     const mutation = useMutationHook(
         data => StudentService.loginUser(data)
     )
 
     const { data, isSuccess, isError } = mutation
-    
-    const handleSignIn = (value) => {
+
+    const handleOnChangeID = (e) => {
+        setStudentID(e.target.value);
+    }
+
+    const handleOnChangePassword = (e) => {
+        setPassword(e.target.value);
+    }
+
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+    }
+
+    const handleSignIn = () => {
+        console.log(`Signing in with ID: ${studentID} and password: ${password}`);
+        // console.log(process.env.REACT_APP_TEST)
         mutation.mutate({
             studentID,
             password
@@ -44,21 +45,25 @@ const LoginStudent = () => {
     const handleGetDetailUser = async (id, token) => {
         const res = await StudentService.getDetailStudent(id, token)
         dispatch(updateStudent({ ...res?.data, accessToken: token }))
+        console.log(res?.data)
     }
-    
+
     useEffect(() => {
-        const { accessToken } = data || {};
-        localStorage.setItem('accessToken', JSON.stringify(accessToken))
-        if (accessToken) {
-            const decoded = jwtDecode(accessToken);
-            if (decoded?.id) {
-                handleGetDetailUser(decoded?.id, accessToken);
+        if (data?.status === "OK") {
+            navigate('/dashboard')
+            localStorage.setItem('accessToken', JSON.stringify(data?.accessToken))
+            console.log('test',data)
+            if (data?.accessToken) {
+                const decoded = jwtDecode(data?.accessToken);
+                console.log('decoded', decoded)
+                if (decoded?.id) {
+                    handleGetDetailUser(decoded?.id, data?.accessToken);
+                }
             }
         }
+
     }, [data, isSuccess, isError])
 
-    
-    
 
     return (
         <>
@@ -79,7 +84,7 @@ const LoginStudent = () => {
                             className="w-full rounded-md py-2.5 px-4 border border-black text-sm outline-[#678dcf]" />
                     </div>
                     <div className="mt-4 px-8">
-                        <label className="block font-poppins text-black pb-2" htmlFor="password" value="password"> Password </label>
+                        <label className="block font-poppins text-black pb-2" htmlFor="password" value={password}> Password </label>
                         <div className=' relative flex items-center'>
                             <input type={passwordVisible ? 'text' : 'password'}
                                 value={password} onChange={handleOnChangePassword}

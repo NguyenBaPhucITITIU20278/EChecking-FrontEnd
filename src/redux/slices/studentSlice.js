@@ -17,7 +17,7 @@ export const studentSlice = createSlice({
     initialState,
     reducers: {
         updateStudent: (state, action) => {
-            const { firstName = '', lastName = '', studentID = '', phone = '', password = '', confirmPassword = '', email = '' } = action.payload
+            const { firstName = '', lastName = '', studentID = '', phone = '', password = '', confirmPassword = '', email = '', accessToken = '', refeshToken = '' } = action.payload
             state.firstName = firstName ? firstName : state.firstName;
             state.lastName = lastName ? lastName : state.lastName;
             state.studentID = studentID ? studentID : state.studentID;
