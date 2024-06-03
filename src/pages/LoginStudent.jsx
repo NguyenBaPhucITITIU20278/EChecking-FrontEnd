@@ -1,6 +1,11 @@
 import { Eye, EyeSlash } from '@phosphor-icons/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useMutationHook } from '../hooks/useMutationHook'
+import { loginUser, getDetailStudent } from '../services/StudentService'
+import { jwtDecode } from 'jwt-decode';
+import { useDispatch } from 'react-redux'
+import { updateStudent } from '../redux/slices/studentSlice'
 
 const LoginStudent = () => {
     const navigate = useNavigate()
@@ -8,29 +13,53 @@ const LoginStudent = () => {
     const [studentID, setStudentID] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleCreate = (e) => {
-
-    }
 
     const handleOnChangeID = (e) => {
         setStudentID(e.target.value);
-        // console.log(studentID)
     }
-
+    
     const handleOnChangePassword = (e) => {
         setPassword(e.target.value);
-        // console.log(password)
     }
-
+    
     const [passwordVisible, setPasswordVisible] = useState(false);
-
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     }
 
-    const goToCourseInfo = () => {
-        navigate('/lecturer/dashboard/course')
+    const mutation = useMutationHook(
+        data => StudentService.loginUser(data)
+    )
+
+    const { data, isSuccess, isError } = mutation
+    
+    const handleSignIn = (value) => {
+        mutation.mutate({
+            studentID,
+            password
+        })
     }
+
+    const dispatch = useDispatch()
+    const handleGetDetailUser = async (id, token) => {
+        const res = await StudentService.getDetailStudent(id, token)
+        dispatch(updateStudent({ ...res?.data, accessToken: token }))
+    }
+    
+    useEffect(() => {
+        const { accessToken } = data || {};
+        localStorage.setItem('accessToken', JSON.stringify(accessToken))
+        if (accessToken) {
+            const decoded = jwtDecode(accessToken);
+            if (decoded?.id) {
+                handleGetDetailUser(decoded?.id, accessToken);
+            }
+        }
+    }, [data, isSuccess, isError])
+
+    
+    
+
     return (
         <>
             <div className='flex justify-center items-center sm:h-max h-full w-full flex-col sm:bg-opacity-0 bg-white bg-opacity-40'>
@@ -50,7 +79,7 @@ const LoginStudent = () => {
                             className="w-full rounded-md py-2.5 px-4 border border-black text-sm outline-[#678dcf]" />
                     </div>
                     <div className="mt-4 px-8">
-                        <label className="block font-poppins text-black pb-2" htmlFor="password"> Password </label>
+                        <label className="block font-poppins text-black pb-2" htmlFor="password" value="password"> Password </label>
                         <div className=' relative flex items-center'>
                             <input type={passwordVisible ? 'text' : 'password'}
                                 value={password} onChange={handleOnChangePassword}
@@ -62,7 +91,7 @@ const LoginStudent = () => {
                         </div>
                     </div>
                     <div className="my-4 mt-8 flex justify-center gap-3">
-                        <button onClick={handleCreate}
+                        <button onClick={handleSignIn}
                             disabled={!studentID || !password}
                             className=" bg-blue-500 hover:bg-blue-600 text-white font-montserrat px-12 py-2  tracking-wider rounded-xl transform shadow cursor-pointer font-bold disabled:bg-gray-400 disabled:cursor-not-allowed">
                             <span className='uppercase'>sign in</span>
@@ -85,7 +114,6 @@ const LoginStudent = () => {
                 </div>
             </div>
         </>
-
 
     )
 }
