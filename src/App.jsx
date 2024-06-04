@@ -37,13 +37,15 @@ export default function App() {
   const AuthWrapper = ({ children, title }) => {
     const { isAuthenticated, isLoading } = useSelector(state => state.auth);
     const navigate = useNavigate();
-  
+
     useEffect(() => {
-      if (!isLoading && title !== 'Login Page' && !isAuthenticated) {
-        navigate('/');
+      if (title !== 'Login Page') {
+        if (!isAuthenticated && !localStorage.getItem('accessToken')) {
+          navigate('/')
+        }
       }
     }, [isAuthenticated, isLoading, navigate, title]);
-  
+
     return children;
   };
 

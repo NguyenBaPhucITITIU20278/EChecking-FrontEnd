@@ -6,6 +6,7 @@ import { useMutationHook } from '../hooks/useMutationHook'
 import { useDispatch } from 'react-redux'
 import { jwtDecode } from 'jwt-decode'
 import { updateLecturer } from '../redux/slices/lecturerSlice'
+import { login } from '../redux/slices/authSlice'
 
 
 const LoginLecturer = () => {
@@ -48,6 +49,7 @@ const LoginLecturer = () => {
 
     const dispatch = useDispatch()
     const handleGetDetailUser = async (id, token) => {
+        dispatch(login({ role: 'student' }));
         const res = await LecturerService.getDetailLecturer(id, token)
         dispatch(updateLecturer({ ...res?.data, accessToken: token }))
         console.log(res?.data)
