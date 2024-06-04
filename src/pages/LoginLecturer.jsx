@@ -1,23 +1,66 @@
 import { ExclamationMark, Eye, EyeSlash, Question } from '@phosphor-icons/react'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import * as LecturerService from '../services/LecturerService'
 
 const LoginLecturer = () => {
     const navigate = useNavigate()
 
-    const handleCreate = (e) => {
+    const [lecturerID, setLecturerID] = useState('')
+    const [password, setPassword] = useState('')
 
+    const mutation = useMutationHook(
+        data => LecturerService.loginUser(data)
+    )
+
+    const { data, isSuccess, isError } = mutation
+
+    const handleOnChangeID = (e) => {
+        setLecturerID(e.target.value);
+    }
+
+    const handleOnChangePassword = (e) => {
+        setPassword(e.target.value);
     }
 
     const [passwordVisible, setPasswordVisible] = useState(false);
-
     const togglePasswordVisibility = () => {
         setPasswordVisible(!passwordVisible);
     }
 
-    const goToStudent = () => {
-        navigate('http://localhost:5173/')
+    const handleSignIn = () => {
+        console.log(`Signing in with ID: ${lecturerID} and password: ${password}`);
+        // console.log(process.env.REACT_APP_TEST)
+        mutation.mutate({
+            lecturerID,
+            password
+        })
     }
+
+    const dispatch = useDispatch()
+    const handleGetDetailUser = async (id, token) => {
+        const res = await LecturerService.getDetailStudent(id, token)
+        dispatch(updateStudent({ ...res?.data, accessToken: token }))
+        console.log(res?.data)
+    }
+
+    useEffect(() => {
+        if (data?.status === "OK") {
+            navigate('/dashboard')
+            localStorage.setItem('accessToken', JSON.stringify(data?.accessToken))
+            console.log('test',data)
+            if (data?.accessToken) {
+                const decoded = jwtDecode(data?.accessToken);
+                console.log('decoded', decoded)
+                if (decoded?.id) {
+                    handleGetDetailUser(decoded?.id, data?.accessToken);
+                }
+            }
+        }
+
+    }, [data, isSuccess, isError])
+
+
     return (
         <>
             <div className='flex justify-center items-center sm:h-max h-full w-full flex-col sm:bg-opacity-0 bg-white bg-opacity-40'>
@@ -30,13 +73,13 @@ const LoginLecturer = () => {
                         <label className="block font-poppins text-black pb-2" htmlFor="email" value="Email" > Lecturer ID </label>
                         <input type='email'
                             name='email'
-                            placeholder='lecturer Id'
+                            placeholder='Lecturer ID'
                             className="w-full rounded-md py-2.5 px-4 border border-black text-sm outline-[#ae67cf]" />
                     </div>
                     <div className="mt-4 px-8">
                         <label className="block font-poppins text-black pb-2" htmlFor="password" value="Password"> Password </label>
                         <div className=' relative flex items-center'>
-                            <input type={passwordVisible ? 'text' : 'password'} className='w-full rounded-md py-2.5 px-4 border border-black text-sm outline-[#678dcf]' placeholder='your password' />
+                            <input type={passwordVisible ? 'text' : 'password'} className='w-full rounded-md py-2.5 px-4 border border-black text-sm outline-[#678dcf]' placeholder='Your password' />
                             <button type="button" id="togglePassword" className="text-gray-500 focus:outline-none focus:text-gray-600 hover:text-gray-600 absolute inset-y-0 right-2" onClick={togglePasswordVisibility}>
                                 {passwordVisible ? <EyeSlash size={26} color='currentColor' /> : <Eye size={26} color='currentColor' />}
                             </button>
@@ -64,8 +107,6 @@ const LoginLecturer = () => {
                 </div>
             </div>
         </>
-
-
     )
 }
 
