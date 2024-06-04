@@ -8,7 +8,7 @@ export const loginUser = async (data) => {
     return res.data
 }
 
-export const getDetailLecturers = async (id, accessToken) => {
+export const getDetailLecturer = async (id, accessToken) => {
     const res = await axios.get(`${API_URL}/lecturer/getDetails/${id}`, {
         headers: {
             token: `Bearer ${accessToken}`,
