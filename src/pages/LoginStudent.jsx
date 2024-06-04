@@ -6,9 +6,14 @@ import * as StudentService from '../services/StudentService'
 import { jwtDecode } from 'jwt-decode';
 import { useDispatch } from 'react-redux'
 import { updateStudent } from '../redux/slices/studentSlice'
+import { login } from '../redux/slices/authSlice'
+
 
 const LoginStudent = () => {
     const navigate = useNavigate()
+    const goToLecturer = () => {
+        navigate('/lecturer')
+    }
 
     const [studentID, setStudentID] = useState('')
     const [password, setPassword] = useState('')
@@ -37,16 +42,17 @@ const LoginStudent = () => {
         // console.log(process.env.REACT_APP_TEST)
         mutation.mutate({
             studentID,
-            password
+            password,
         })
     }
 
     const dispatch = useDispatch()
     const handleGetDetailUser = async (id, token) => {
-        const res = await StudentService.getDetailStudent(id, token)
-        dispatch(updateStudent({ ...res?.data, accessToken: token }))
-        console.log(res?.data)
-    }
+        dispatch(login({ role: 'student' }));
+        const res = await StudentService.getDetailStudent(id, token);
+        dispatch(updateStudent({ ...res?.data, accessToken: token }));
+        console.log(res?.data);
+    };
 
     useEffect(() => {
         if (data?.status === "OK") {
@@ -113,9 +119,9 @@ const LoginStudent = () => {
                     <span>
                         try as&nbsp;
                     </span>
-                    <a href='' className='text-purple-800 underline'>
+                    <button onClick={goToLecturer} className='text-purple-800 underline'>
                         Lecturer!
-                    </a>
+                    </button>
                 </div>
             </div>
         </>
