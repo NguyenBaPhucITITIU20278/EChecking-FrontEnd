@@ -60,6 +60,8 @@ const LoginStudent = () => {
             navigate('/dashboard')
             message.success('Login Success')
             localStorage.setItem('accessToken', JSON.stringify(data?.accessToken))
+            localStorage.setItem('role', 'student');
+            // console.log('Role:', localStorage.getItem('role'));
             // console.log('test', data)
             if (data?.accessToken) {
                 const decoded = jwtDecode(data?.accessToken);

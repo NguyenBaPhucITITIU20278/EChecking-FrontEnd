@@ -9,7 +9,7 @@ export const loginUser = async (data) => {
 }
 
 export const getDetailStudent = async (id, accessToken) => {
-    const res = await axios.get(`${API_URL}/student/getDetails/${id}`, {
+    const res = await axiosJWT.get(`${API_URL}/student/getDetails/${id}`, {
         headers: {
             token: `Bearer ${accessToken}`,
         }

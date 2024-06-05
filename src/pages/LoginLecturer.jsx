@@ -62,6 +62,7 @@ const LoginLecturer = () => {
             navigate('/lecturer/home')
             message.success('Login Success')
             localStorage.setItem('accessToken', JSON.stringify(data?.accessToken))
+            localStorage.setItem('role', 'lecturer');
             // console.log('test', data)
             if (data?.accessToken) {
                 const decoded = jwtDecode(data?.accessToken);

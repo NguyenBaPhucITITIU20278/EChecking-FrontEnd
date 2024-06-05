@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateStudent } from "./redux/slices/studentSlice";
 import { updateLecturer } from "./redux/slices/lecturerSlice";
 import * as StudentService from "./services/StudentService";
+import * as LecturerService from "./services/LecturerService";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { jwtDecode } from 'jwt-decode';
 import { isJsonString } from "./utils";
@@ -21,14 +22,20 @@ export default function App() {
   const student = useSelector(state => state.student)
   const lecturer = useSelector(state => state.lecturer)
 
-  const handleGetDetailUser = async (id, token) => {
+  const fetchStudentData = async (id, token) => {
     try {
-      const resStudent = await StudentService.getDetailUser(id, token)
-      const resLecturer = await StudentService.getDetailUser(id, token)
+      const resStudent = await StudentService.getDetailStudent(id, token)
       dispatch(updateStudent({ ...resStudent?.data, accessToken: token }))
+      // console.log(resStudent?.data)
+    } catch (error) {
+      // console.log(error)
+    }
+  }
+
+  const fetchLecturerData = async (id, token) => {
+    try {
+      const resLecturer = await LecturerService.getDetailLecturer(id, token)
       dispatch(updateLecturer({ ...resLecturer?.data, accessToken: token }))
-      setIsLoading(false)
-      // console.log(res?.data)
     } catch (error) {
       // console.log(error)
     }
@@ -51,14 +58,30 @@ export default function App() {
 
   useEffect(() => {
     setIsLoading(true)
-    let storageData = localStorage.getItem('accessToken')
-    if (storageData && isJsonString(storageData)) {
-      storageData = JSON.parse(storageData)
-      const decoded = jwtDecode(storageData);
-      if (decoded?.id) {
-        handleGetDetailUser(decoded?.id, storageData);
+    if (localStorage.getItem('role')) {
+      if (localStorage.getItem('role') === 'student') {
+        let storageData = localStorage.getItem('accessToken')
+        if (storageData && isJsonString(storageData)) {
+          storageData = JSON.parse(storageData)
+          const decoded = jwtDecode(storageData);
+          if (decoded?.id) {
+            // console.log('decoded', decoded)
+            fetchStudentData(decoded?.id, storageData);
+          }
+        }
+      } else if (localStorage.getItem('role') === 'lecturer') {
+        let storageData = localStorage.getItem('accessToken')
+        if (storageData && isJsonString(storageData)) {
+          storageData = JSON.parse(storageData)
+          const decoded = jwtDecode(storageData);
+          if (decoded?.id) {
+            // console.log('decoded', decoded)
+            fetchLecturerData(decoded?.id, storageData);
+          }
+        }
       }
     }
+
     setIsLoading(false)
   })
 
