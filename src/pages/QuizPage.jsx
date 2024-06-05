@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { TrayArrowUp, X } from '@phosphor-icons/react'
 import { message } from 'antd';
 import * as CourseService from '../services/CourseService';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import * as AttendanceService from '../services/AttendanceService';
 
 
@@ -39,7 +39,7 @@ const QuizPage = () => {
     const { code } = useParams();
 
     const [sessionCode, setSessionCode] = useState('');
-    const [sessionQuiz, setSessionQuiz] = useState(''); 
+    const [sessionQuiz, setSessionQuiz] = useState('');
     const [courseName, setCourseName] = useState('');
 
     const fetchCourseName = async (id) => {
@@ -54,6 +54,12 @@ const QuizPage = () => {
         } catch (error) {
             // console.error("Error fetching course name:", error);
         }
+    }
+    const navigate = useNavigate();
+
+    const handleComplete = () => {
+        message.success('Quiz submitted!');
+        navigate('/dashboard');
     }
 
     const fetchSession = async () => {
@@ -107,7 +113,9 @@ const QuizPage = () => {
                             </button>
                         </label>
                     </div>
-                    <button className='border border-black sm:w-1/5  rounded-xl p-2  bg-white transition hover:bg-blue-500 ease-in-out duration-500 group'>
+                    <button
+                        onClick={handleComplete}
+                        className='border border-black sm:w-1/5  rounded-xl p-2  bg-white transition hover:bg-blue-500 ease-in-out duration-500 group'>
                         <span className='sm:text-lg text-xs uppercase font-montserrat sm:text-gray-500 text-black font-black tracking-wider group-hover:text-white'>
                             Submit
                         </span>

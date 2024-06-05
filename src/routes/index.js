@@ -98,7 +98,7 @@ export const routes = [
         header: true
     },
     {
-        path: '/lecturer/dashboard/course/session',
+        path: '/lecturer/dashboard/:course/:session',
         page: SessionInfoPage,
         title: 'Session Information',
         role: 'lecturer',

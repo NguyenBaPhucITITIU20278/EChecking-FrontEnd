@@ -24,7 +24,6 @@ const monthNames = ["January", "February", "March", "April", "May", "June", "Jul
 
 const SessionCard = ({ studentNum, session }) => {
     const navigate = useNavigate()
-
     const mockDate = new Date(session.createdAt)
     const day = mockDate.getDate();
     const month = mockDate.getMonth() + 1;
@@ -38,7 +37,7 @@ const SessionCard = ({ studentNum, session }) => {
 
     return (
         <div
-            className={`sm:p-5 p-4 ${getRandomGradient()} flex flex-col-reverse bg-opacity-45 hover:bg-opacity-95 h-max sm:min-w-60 min-w-1/3 rounded-xl shadow-xl overflow hover:scale-105 transition duration-200 justify-between gap-2`}>
+            className={`sm:p-5 p-4 ${session.type === 'Quiz' ? 'bg-white' : 'bg-red-400'} flex flex-col-reverse bg-opacity-45 hover:bg-opacity-95 h-max sm:min-w-60 min-w-1/3 rounded-xl shadow-xl overflow hover:scale-105 transition duration-200 justify-between gap-2`}>
             <div className='bg-white p-2 flex  sm:relative sm:justify-center justify-between rounded-xl sm:items-center group'>
                 <span className='uppercase font-poppins text-xl'>
                     {session ? session.code : 'CODEXD'}
