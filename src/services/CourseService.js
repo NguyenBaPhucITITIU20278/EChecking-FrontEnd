@@ -12,6 +12,15 @@ export const getAll = async (id, accessToken) => {
     return res.data
 }
 
+export const create = async (data, accessToken, id) => {
+    const res = await axiosJWT.post(`${API_URL}/course/create/${id}`, data, {
+        headers: {
+            token: `Bearer ${accessToken}`,
+        }
+    })
+    return res.data
+}
+
 
 export const getCourseName = async (id) => {
     const res = await axios.get(`${API_URL}/course/getCourseName/${id}`)

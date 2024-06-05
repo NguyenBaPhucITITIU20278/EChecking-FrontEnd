@@ -75,7 +75,7 @@ const Lecturer = () => {
                         <CourseCard course={course}/>
                     </div>
                 ))}
-                {currentPage === totalPages ? <div className='animate-fade'><EmptyCard /></div> : null}
+                {currentPage === totalPages && currentCourses.length % 8 !== 0 ?  <div className='animate-fade'><EmptyCard /></div> : null}
             </div>
             <div className='flex gap-4 pt-4 justify-center'>
                 {Array.from({ length: totalPages }, (_, index) => (

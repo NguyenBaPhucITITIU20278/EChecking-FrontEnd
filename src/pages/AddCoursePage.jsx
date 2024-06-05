@@ -1,64 +1,77 @@
-import { ArrowLineLeft } from '@phosphor-icons/react'
-import React from 'react'
+import { ArrowLineLeft, Password } from '@phosphor-icons/react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import * as CourseService from '../services/CourseService'
+import { jwtDecode } from 'jwt-decode'
+import * as message from '../components/MessageModal'
 
 const AddCoursePage = () => {
     const navigate = useNavigate()
+    const [description, setDescription] = useState('')
+    const [name, setName] = useState('')
 
-    const handleCreate = (e) => {
-        // console.log('Create new course')
-        // mutationCreateCourse.mutate(stateCourse)
-        // console.log('course', stateCourse);
+    const handleCreate = async (id, token) => {
+        let storageData = JSON.parse(localStorage.getItem('accessToken'));
+        const decoded = jwtDecode(storageData);
+        console.log(decoded);
+        const res = await CourseService.create({
+            name: name,
+            description: description,
+            lecturerId: decoded.id,
+        }, storageData, decoded.id);
+        console.log(res?.data);
+        if (res?.status === "OK") {
+            message.success('Course created!');
+            goToDashboard();
+        } else if (res?.status === "ERR") {
+            message.error(res?.message);
+        }
+    };
+
+    const handleOnChangeCourseName = (e) => {
+        setName(e.target.value)
     }
 
-    const handleOnChange = (e) => {
-        console.log('e.target.value', e.target.name, e.target.value)
-        // setStateCourse({
-        //     ...stateCourse,
-        //     [e.target.name]: e.target.value
-        // }
-}
+    const handleOnChangeCourseInfo = (e) => {
+        setDescription(e.target.value)
+    }
 
     const goToCourseInfo = () => {
         navigate('/lecturer/dashboard/course')
     }
 
-    const goToAccount = () => {
+    const goToDashboard = () => {
         navigate('/lecturer/dashboard/')
     }
 
     return (
         <>
             <div className='flex justify-center items-center sm:h-full h-svh w-full flex-col'>
-                <div className='animate-fade-in sm:w-[502px] w-full sm:h-[450px] h-full backdrop bg-white bg-opacity-30 rounded sm:p-3 px-6 pt-2  border border-gray-300 shadow-lg'>
+                <div className='animate-fade-in sm:w-[502px] w-full sm:h-[370px] h-full backdrop bg-white bg-opacity-30 rounded sm:p-3 px-6 pt-2  border border-gray-300 shadow-lg'>
                     <form action="#" className='space-y-2'>
                         <legend className='sm:hidden pt-10 pb-8 text-[28px] text-center font-montserrat text-gray-600 font-bold '>CREATE NEW CLASS</legend>
-                        <label htmlFor="courseID" className="block sm:text-2xl text-xl font-montserrat leading-6 text-black">Course ID</label>
+                        <label htmlFor="name" className="block sm:text-2xl text-xl font-montserrat leading-6 text-black">Course Name</label>
                         <div className="mt-2">
-                            <input id="courseID" name="courseID" placeholder='ID of the course' type="text" autoComplete="courseID" required className="font-palanquin block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-0 focus:ring-indigo-200 sm:text-sm sm:leading-6"
-                            // onChange={handleCreate} 
+                            <input id="name" name="name" placeholder='Name of the class' type="input" required className="font-palanquin block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                onChange={handleOnChangeCourseName} value={name}
                             />
                         </div>
-                        <label htmlFor="courseName" className="block sm:text-2xl text-xl font-montserrat leading-6 text-black">Course Name</label>
+                        <label htmlFor="description" className=" block sm:text-2xl text-xl font-montserrat leading-6 text-black">Description</label>
                         <div className="mt-2">
-                            <input id="courseName" name="courseName" placeholder='Name of the class' type="courseName" autoComplete="courseName" required className="font-palanquin block w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-1 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            // onChange={handleCreate} 
-                            />
-                        </div>
-                        <label htmlFor="classInfo" className=" block sm:text-2xl text-xl font-montserrat leading-6 text-black">Description</label>
-                        <div className="mt-2">
-                            <textarea id="classInfo" name="classInfo" placeholder="Information of the class (date, group, section,....)" autoComplete="classInfo" required className="resize-none block font-palanquin h-36 w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                            // onChange={handleCreate} 
+                            <textarea id="description" name="description" placeholder="Information of the class (date, group, section,....)" required className="resize-none block font-palanquin h-36 w-full rounded-md border-0 px-1.5 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                onChange={handleOnChangeCourseInfo} value={description}
                             ></textarea>
                         </div>
                     </form>
                     <div className="pt-5 flex justify-center gap-3">
-                        <button onClick={goToAccount} className='sm:block hidden bg-gray-400 hover:bg-gray-600 text-white font-montserrat w-1/2 h-10 tracking-wider rounded-sm items-center transform shadow cursor-pointer'>
+                        <button onClick={goToDashboard} className='sm:block hidden bg-gray-400 hover:bg-gray-600 text-white font-montserrat w-1/2 h-10 tracking-wider rounded-sm items-center transform shadow cursor-pointer'>
                             <div className='flex flex-row justify-center items-center'>
                                 <span>Return</span>
                             </div>
                         </button>
-                        <button onClick={handleCreate} className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat  w-1/2 h-10 tracking-wider rounded-sm items-center transform shadow cursor-pointer">
+                        <button
+                        disabled={!name || !description} 
+                        onClick={handleCreate} className="bg-blue-500 hover:bg-blue-600 text-white font-montserrat  w-1/2 h-10 tracking-wider rounded-sm items-center transform shadow cursor-pointer disabled:bg-gray-400 disabled:cursor-not-allowed">
                             <div className='flex flex-row justify-center'>
                                 <span className=''>Create</span>
                             </div>
