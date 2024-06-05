@@ -49,7 +49,7 @@ export const routes = [
         page: StudentSuccess, // remove
     },
     {
-        path: '/lecturer/dashboard',
+        path: '/lecturer/home',
         page: DashboardLecturer,
     },
     {
@@ -68,7 +68,7 @@ export const routes = [
         header: true
     },
     {
-        path: '/lecturer/home',
+        path: '/lecturer/dashboard',
         page: Lecturer,
         title: 'Course List',
         role: 'lecturer',
@@ -91,7 +91,7 @@ export const routes = [
         header: true
     },
     {
-        path: '/lecturer/dashboard/course',
+        path: '/lecturer/dashboard/:course',
         page: CourseInfoPage,
         title: 'Course Information',
         role: 'lecturer',

@@ -23,6 +23,10 @@ const AddCoursePage = () => {
         navigate('/lecturer/dashboard/course')
     }
 
+    const goToAccount = () => {
+        navigate('/lecturer/dashboard/')
+    }
+
     return (
         <>
             <div className='flex justify-center items-center sm:h-full h-svh w-full flex-col'>
@@ -49,7 +53,7 @@ const AddCoursePage = () => {
                         </div>
                     </form>
                     <div className="pt-5 flex justify-center gap-3">
-                        <button onClick={goToCourseInfo} className='sm:block hidden bg-gray-400 hover:bg-gray-600 text-white font-montserrat w-1/2 h-10 tracking-wider rounded-sm items-center transform shadow cursor-pointer'>
+                        <button onClick={goToAccount} className='sm:block hidden bg-gray-400 hover:bg-gray-600 text-white font-montserrat w-1/2 h-10 tracking-wider rounded-sm items-center transform shadow cursor-pointer'>
                             <div className='flex flex-row justify-center items-center'>
                                 <span>Return</span>
                             </div>
