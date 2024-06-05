@@ -11,6 +11,8 @@ import QuizPage from "../pages/QuizPage";
 import DashboardStudent from "../pages/DashboardStudent";
 import SessionInfoPage from "../pages/SessionInfoPage";
 import StudentAccount from "../pages/StudentAccount";
+import Lecturer from "../pages/Lecturer";
+import ReviewCode from "../pages/ReviewCode";
 
 export const routes = [
     {
@@ -18,6 +20,7 @@ export const routes = [
         page: LoginLecturer,
         title: 'Login Page',
         role: 'Lecturer',
+        animatedBg: true,
         header: true
     },
     {
@@ -25,6 +28,7 @@ export const routes = [
         page: LoginStudent,
         title: 'Login Page',
         role: 'Student',
+        animatedBg: true,
         header: true
     },
     {
@@ -37,7 +41,6 @@ export const routes = [
         page: StudentDashboard,
     },
     {
-        
         path: '/success',
         page: StudentSuccess,
     },
@@ -54,6 +57,13 @@ export const routes = [
         page: DashboardStudent,
         title: '404',
         role: '404'
+    },
+    {
+        path: '/lecturer/home',
+        page: Lecturer,
+        title: 'Course List',
+        role: 'lecturer',
+        header: true
     },
     {
         path: '/lecturer/dashboard/add-course',
@@ -82,6 +92,13 @@ export const routes = [
         path: '/lecturer/dashboard/course/session',
         page: SessionInfoPage,
         title: 'Session Information',
+        role: 'lecturer',
+        header: true
+    },
+    {
+        path: '/lecturer/dashboard/course/session/review',
+        page: ReviewCode,
+        title: 'Quiz',
         role: 'lecturer',
         header: true
     },

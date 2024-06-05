@@ -1,13 +1,15 @@
 import { BreadcrumbItem, Breadcrumbs } from '@nextui-org/react'
 import { useLocation } from 'react-router-dom'
-import { Student, User, House, Folder, File } from '@phosphor-icons/react'
+import { Student, User, House, Folder, File, Barcode } from '@phosphor-icons/react'
 
 const iconMapping = {
     dashboard: House,
     lecturer: Student,
     student: User,
     course: Folder,
-    session: File
+    session: File,
+    home: House,
+    review: Barcode
 }
 
 const BreadcrumbComponent = () => {

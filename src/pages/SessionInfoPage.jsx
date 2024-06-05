@@ -1,12 +1,11 @@
 import BreadcrumbComponent from '../components/BreadcrumbComponent'
-import SessionCard from '../components/CourseComponents/SessionCard'
 import { ArrowsOut } from '@phosphor-icons/react'
 import TableComponent from '../components/SessionComponents/TableComponent'
 
 const SessionInfoPage = () => {
 
     return (
-        <div className={`sm:h-full h-full bg-gradient-to-tr from-violet-400 to-sky-200`}>
+        <div className={`sm:h-full h-svh bg-gradient-to-tr from-violet-400 to-sky-200`}>
             <div className="p-4 flex flex-col gap-2">
                 <BreadcrumbComponent />
                 <div id='course-info' className='px-6 py-4 flex flex-col sm:gap-1 border-[1px] border-gray-700 bg-white bg-opacity-90 w-full relative shadow-xl'>

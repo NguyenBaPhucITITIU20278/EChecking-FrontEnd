@@ -8,7 +8,7 @@ const HeaderComponent = ({ title, role }) => {
     
     return (
         <>
-            <header className='bg-white w-full flex justify-between sm:px-6 lg:px-8 items-center align-middle shadow-xl'>
+            <header className='bg-white w-full flex justify-between sm:px-6 lg:px-8 items-center align-middle shadow-xl border-b border-black'>
                 <div className='flex'>
                     <a href="#" className='-m-1.5 p-1.5'>
                         <img src={logo} alt="logo" className='w-auto h-20 items-center' />

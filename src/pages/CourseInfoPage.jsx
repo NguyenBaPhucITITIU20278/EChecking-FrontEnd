@@ -47,6 +47,24 @@ const CourseInfoPage = () => {
         setIsEditInfo(false);
     }
 
+    const sessionList = Array.from({ length: 51 }, (_, index) => index);
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 12;
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = sessionList.slice(indexOfFirstItem, indexOfLastItem);
+
+    const pageNumbers = [];
+    for (let i = 1; i <= Math.ceil(sessionList.length / itemsPerPage); i++) {
+        pageNumbers.push(i);
+    }
+
+    const handleClick = (event) => {
+        setCurrentPage(Number(event.target.id));
+    }
+
 
     return (
         <div className={`sm:h-full h-full bg-gradient-to-tr from-violet-400 to-sky-200`}>
@@ -69,16 +87,23 @@ const CourseInfoPage = () => {
                         </button>
                     </div>
                 </div>
-                <div id='sessions-container' className='pt-12 flex gap-8 flex-wrap'>
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
-                    <SessionCard />
+                <div id='sessions-container' className='py-12 h-[450px] flex gap-8 justify-center flex-wrap'>
+                    {currentItems.map((session, index) => (
+                        <SessionCard key={index} />
+                    ))
+                    }
+                </div>
+                <div className="flex gap-4 pt-4 justify-center">
+                    {pageNumbers.map(number => (
+                        <div
+                            key={number}
+                            id={number}
+                            onClick={handleClick}
+                            className={`rounded-lg border border-black py-2 px-6 font-poppins tabular-nums w-[60px] ${currentPage === number ? 'bg-blue-200 scale-110' : 'bg-white'} transition duration-200 ease-in-out`}
+                        >
+                            {number}
+                        </div>
+                    ))}
                 </div>
             </div>
             <>

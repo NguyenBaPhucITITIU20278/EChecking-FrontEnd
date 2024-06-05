@@ -50,10 +50,23 @@ export default {
       screens: {
         "wide": "1440px"
       },
+      transitionDelay: {
+        '0': '0ms',
+        '1': '100ms',
+        '2': '200ms',
+        '3': '300ms',
+        '4': '400ms',
+        '5': '500ms',
+        '6': '600ms',
+        '7': '700ms',
+        '8': '800ms',
+        '9': '900ms',
+      },
       animation: {
-        blob: "blob 7s infinite",
+        blob: "blob 7s ease-in-out infinite",
         gradient: "gradient 15s infinite",
-        "fade-in": "fade-in 0.5s ease-out"
+        "fade-in": "fade-in 0.5s ease-out",
+        fade: 'fadeIn .5s ease-in-out',
       },
       keyframes: {
         gradientA: {
@@ -78,7 +91,11 @@ export default {
         "fade-in": {
           '0%': { opacity: 0 },
           '100%': { opacity: 1 }
-        }
+        },
+        fadeIn: {
+					from: { opacity: 0 },
+					to: { opacity: 1 },
+				},
       },
   },
   plugins: [],
