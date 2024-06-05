@@ -16,3 +16,12 @@ export const getAll = async (courseId, accessToken) => {
     })
     return res.data
 }
+
+export const create = async (courseId, accessToken, data) => {
+    const res = await axiosJWT.post(`${API_URL}/attendance/create/${courseId}`, data, {
+        headers: {
+            token: `Bearer ${accessToken}`,
+        }
+    })
+    return res.data
+}

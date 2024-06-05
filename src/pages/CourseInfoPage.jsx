@@ -144,7 +144,7 @@ const CourseInfoPage = () => {
                         <button
                             key={index}
                             onClick={() => handleClick(index + 1)}
-                            className={`rounded-lg border border-black py-2 px-6 font-poppins tabular-nums w-[60px] ${currentPage === number ? 'bg-blue-200 scale-110' : 'bg-white'} transition duration-200 ease-in-out`}
+                            className={`rounded-lg border border-black py-2 px-6 font-poppins tabular-nums w-[60px] ${currentPage === index + 1 ? 'bg-blue-200 scale-110' : 'bg-white'} transition duration-200 ease-in-out`}
                         >
                             {index + 1}
                         </button>
