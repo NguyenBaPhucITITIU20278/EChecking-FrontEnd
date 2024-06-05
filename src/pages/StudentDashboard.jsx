@@ -19,8 +19,9 @@ const StudentDashboard = () => {
 
   const navigation = useNavigate();
   const goToQuiz = () => {
+    localStorage.setItem('code', JSON.stringify(sessionInfo));
     message.success('Session found!')
-    navigation('/student/quiz');
+    navigation(`/dashboard/${pinCode}`);
   }
 
   const handlePinChange = (e) => {
