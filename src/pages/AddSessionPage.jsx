@@ -29,7 +29,7 @@ const AddSessionPage = () => {
     }
 
     const { course } = useParams()
-
+    
     const handleCreateSession = async () => {
         try {
             let storageData = JSON.parse(localStorage.getItem('accessToken'));

@@ -1,5 +1,6 @@
 import { CalendarBlank, ListMagnifyingGlass, Users } from '@phosphor-icons/react'
 import React from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
 
 const gradients = [
     // 'bg-gradient-to-r from-green-400 to-blue-500',
@@ -17,23 +18,34 @@ function getRandomGradient() {
     return gradients[randomIndex];
 }
 
-const mockDate = {
-    day: '15',
-    month: 'November',
-    year: '2022'
-};
+
 
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-const SessionCard = ({ studentNum, date, session }) => {
+const SessionCard = ({ studentNum, session }) => {
+    const navigate = useNavigate()
+
+    const mockDate = new Date(session.createdAt)
+    const day = mockDate.getDate();
+    const month = mockDate.getMonth() + 1;
+    const year = mockDate.getFullYear();
+    // console.log(mockDate)
+    const { course } = useParams()
     const monthNumber = monthNames.indexOf(mockDate.month) + 1;
+    const goToCard = () => {
+        navigate(`/lecturer/dashboard/${course}/${session.code}/review`)
+    }
+
     return (
-        <a href='' className={`sm:p-5 p-4 ${getRandomGradient()} flex flex-col-reverse bg-opacity-45 hover:bg-opacity-95 h-max sm:min-w-60 min-w-1/3 rounded-xl shadow-xl overflow hover:scale-105 transition duration-200 justify-between gap-2`}>
+        <div
+            className={`sm:p-5 p-4 ${getRandomGradient()} flex flex-col-reverse bg-opacity-45 hover:bg-opacity-95 h-max sm:min-w-60 min-w-1/3 rounded-xl shadow-xl overflow hover:scale-105 transition duration-200 justify-between gap-2`}>
             <div className='bg-white p-2 flex  sm:relative sm:justify-center justify-between rounded-xl sm:items-center group'>
-                <span className='cursor-pointer uppercase font-poppins text-xl group-hover:scale-110'>
-                    CodeXD
+                <span className='uppercase font-poppins text-xl'>
+                    {session ? session.code : 'CODEXD'}
                 </span>
-                <button className='sm:absolute sm:flex hidden right-2 hover:scale-110 p-1 border-[1px] border-black rounded-lg hover:bg-slate-100'>
+                <button
+                    onClick={goToCard}
+                    className='sm:absolute sm:flex hidden right-2 hover:scale-110 p-1 border-[1px] border-black rounded-lg hover:bg-slate-100'>
                     <ListMagnifyingGlass size={20} weight="light" />
                 </button>
             </div>
@@ -43,7 +55,7 @@ const SessionCard = ({ studentNum, date, session }) => {
                         <Users size={20} weight="light" />
                     </span>
                     <span className='font-montserrat flex'>
-                        {studentNum ? studentNum : 0}
+                        {studentNum ? studentNum : Math.floor(Math.random() * 30)}
                         &nbsp;
                         <span className='hidden sm:flex'>Students</span>
                     </span>
@@ -55,16 +67,16 @@ const SessionCard = ({ studentNum, date, session }) => {
                     <span className='font-montserrat text-black flex'>
                         {mockDate ?
                             <>
-                                <span>{mockDate.day}</span>
+                                <span>{day < 10 ? '0' + day : day}</span>
                                 <span className='sm:flex hidden'>&nbsp;</span>
-                                <span className='sm:flex hidden'>{mockDate.month}&nbsp;</span>
-                                <span className='sm:hidden flex'>/{monthNumber < 10 ? '0' + monthNumber : monthNumber}&nbsp;</span>
-                                <span className='sm:flex hidden'>{mockDate.year}&nbsp;</span>
+                                <span className='sm:flex hidden'>{month < 10 ? '0' + month : month}&nbsp;</span>
+                                <span className='sm:hidden flex'>/{month < 10 ? '0' + month : month}&nbsp;</span>
+                                <span className='sm:flex hidden'>{year}&nbsp;</span>
                             </> : '##/Month/####'}
                     </span>
                 </div>
             </div>
-        </a>
+        </div>
     )
 }
 

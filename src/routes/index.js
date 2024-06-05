@@ -105,7 +105,7 @@ export const routes = [
         header: true
     },
     {
-        path: '/lecturer/dashboard/course/session/review',
+        path: '/lecturer/dashboard/:course/:session/review',
         page: ReviewCode,
         title: 'Quiz',
         role: 'lecturer',
