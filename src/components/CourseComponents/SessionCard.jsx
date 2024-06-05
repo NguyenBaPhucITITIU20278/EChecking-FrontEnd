@@ -25,7 +25,7 @@ const mockDate = {
 
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-const SessionCard = ({ studentNum, date }) => {
+const SessionCard = ({ studentNum, date, session }) => {
     const monthNumber = monthNames.indexOf(mockDate.month) + 1;
     return (
         <a href='' className={`sm:p-5 p-4 ${getRandomGradient()} flex flex-col-reverse bg-opacity-45 hover:bg-opacity-95 h-max sm:min-w-60 min-w-1/3 rounded-xl shadow-xl overflow hover:scale-105 transition duration-200 justify-between gap-2`}>

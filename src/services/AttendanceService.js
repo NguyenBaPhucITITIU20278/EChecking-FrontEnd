@@ -7,3 +7,12 @@ export const getDetailsByCode = async (code) => {
     const res = await axiosJWT.get(`${API_URL}/attendance/getDetailsByCode/${code}`)
     return res.data
 }
+
+export const getAll = async (courseId, accessToken) => {
+    const res = await axiosJWT.get(`${API_URL}/attendance/getAll/${courseId}`, {
+        headers: {
+            token: `Bearer ${accessToken}`,
+        }
+    })
+    return res.data
+}

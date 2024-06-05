@@ -83,7 +83,7 @@ export const routes = [
         header: true
     },
     {
-        path: '/lecturer/dashboard/add-session',
+        path: '/lecturer/dashboard/:course/add-session',
         page: AddSessionPage,
         title: 'New Attendance',
         animatedBg: true,

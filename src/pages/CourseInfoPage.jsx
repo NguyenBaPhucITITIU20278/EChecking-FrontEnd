@@ -1,15 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CourseNavbar from '../components/CourseComponents/CourseNavbar'
 import BreadcrumbComponent from '../components/BreadcrumbComponent'
 import SessionCard from '../components/CourseComponents/SessionCard'
 import { CheckFat, NotePencil } from '@phosphor-icons/react'
 import { Modal } from 'antd'
+import { jwtDecode } from 'jwt-decode'
+import * as AttendanceService from '../services/AttendanceService'
+import { useParams } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import * as CourseService from '../services/CourseService'
 
 
 const CourseInfoPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [isEditInfo, setIsEditInfo] = useState(false);
+
+    const [courseName, setCourseName] = useState('');
+    const [courseInfo, setCourseInfo] = useState('');
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -47,23 +55,60 @@ const CourseInfoPage = () => {
         setIsEditInfo(false);
     }
 
-    const sessionList = Array.from({ length: 51 }, (_, index) => index);
-
+    const [sessionList, setSessionList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 12;
 
-    const indexOfLastItem = currentPage * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = sessionList.slice(indexOfFirstItem, indexOfLastItem);
+    const totalPages = Math.ceil(sessionList.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentSessions = sessionList.slice(startIndex, endIndex);
 
-    const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(sessionList.length / itemsPerPage); i++) {
-        pageNumbers.push(i);
+    const handleClick = (pageNumbers) => {
+        setCurrentPage(pageNumbers);
     }
 
-    const handleClick = (event) => {
-        setCurrentPage(Number(event.target.id));
+    const { course } = useParams();
+
+    const getAllSession = async () => {
+        try {
+            let storageData = JSON.parse(localStorage.getItem('accessToken'));
+            // console.log(decoded);
+            const res = await AttendanceService.getAll(course, storageData);
+            // console.log(res);
+            return res;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
     }
+
+    const fetchSession = async () => {
+        let storageData = JSON.parse(localStorage.getItem('accessToken'));
+        const res = await CourseService.getDetails(course, storageData);
+        if (res?.status === "OK") {
+            setCourseName(res.data.name);
+            setCourseInfo(res.data.description);
+        } else if (res?.status === "ERR") {
+            message.error(res?.message);
+        }
+    }
+
+    const querySession = useQuery({ queryKey: ['sessions'], queryFn: getAllSession })
+    const { isLoading: isLoadingSessions, data: dataSessions, error: errorSessions } = querySession
+
+    useEffect(() => {
+        if (localStorage.getItem('accessToken')) {
+            fetchSession();
+        }
+        getAllSession()
+            .then(res => {
+                setSessionList(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }, [])
 
 
     return (
@@ -73,12 +118,13 @@ const CourseInfoPage = () => {
                 <BreadcrumbComponent />
                 <div id='course-info' className='px-6 py-4 flex flex-col sm:gap-1 border-[1px] border-gray-700 bg-white w-full relative'>
                     <h1 className='font-poppins sm:text-4xl text-2xl items-center flex flex-row gap-4'>
-                        <span>Course Name</span>
-                        <span className='sm:text-2xl text-xl  uppercase'>COURSEID</span>
+                        <span>
+                            {courseName ? courseName : 'Course Name'}
+                        </span>
                     </h1>
                     <div className='bg-white rounded-lg h-max  2xl:w-[1400px]'>
                         <div className='text-justify font-palanquin sm:text-xl text-sm'>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                            {courseInfo ? courseInfo : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book'}
                         </div>
                     </div>
                     <div>
@@ -88,21 +134,20 @@ const CourseInfoPage = () => {
                     </div>
                 </div>
                 <div id='sessions-container' className='py-12 h-[450px] flex gap-8 justify-center flex-wrap'>
-                    {currentItems.map((session, index) => (
-                        <SessionCard key={index} />
+                    {currentSessions.map((session, index) => (
+                        <SessionCard key={`${currentPage}-${index}`} session={session} />
                     ))
                     }
                 </div>
                 <div className="flex gap-4 pt-4 justify-center">
-                    {pageNumbers.map(number => (
-                        <div
-                            key={number}
-                            id={number}
-                            onClick={handleClick}
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => handleClick(index + 1)}
                             className={`rounded-lg border border-black py-2 px-6 font-poppins tabular-nums w-[60px] ${currentPage === number ? 'bg-blue-200 scale-110' : 'bg-white'} transition duration-200 ease-in-out`}
                         >
-                            {number}
-                        </div>
+                            {index + 1}
+                        </button>
                     ))}
                 </div>
             </div>

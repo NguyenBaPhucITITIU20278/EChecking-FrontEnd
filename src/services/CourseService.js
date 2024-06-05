@@ -26,3 +26,21 @@ export const getCourseName = async (id) => {
     const res = await axios.get(`${API_URL}/course/getCourseName/${id}`)
     return res.data
 }
+
+export const getDetails = async (id, accessToken) => {
+    const res = await axiosJWT.get(`${API_URL}/course/getDetails/${id}`, {
+        headers: {
+            token: `Bearer ${accessToken}`,
+        }
+    })
+    return res.data
+}
+
+export const deleteCourse = async (id, accessToken) => {
+    const res = await axiosJWT.delete(`${API_URL}/course/delete/${id}`, {
+        headers: {
+            token: `Bearer ${accessToken}`,
+        }
+    })
+    return res.data
+}
