@@ -12,10 +12,17 @@ const iconMapping = {
     review: Barcode
 }
 
+const DefaultIcon = {
+    1: Folder,
+    2: File,
+    3: Barcode
+}
+
 const BreadcrumbComponent = () => {
     const location = useLocation();
     const pathnames = location.pathname.split('/').filter((x) => x);
     const user = pathnames.shift().toLowerCase();
+    
     // console.log(pathnames)
     // console.log(location)
 
@@ -28,8 +35,8 @@ const BreadcrumbComponent = () => {
                 }} >
                 {pathnames.map((value, index) => {
                     const to = `/${user}/${pathnames.slice(0, index + 1).join('/')}`;
-                    const Icon = iconMapping[value.toLowerCase()] || null;
-                    // console.log(to)
+                    const Icon = (iconMapping[value.toLowerCase()] || DefaultIcon[index])
+                    // console.log(to)  
                     return (
                         <BreadcrumbItem key={index} href={to} className="p-2 group">
                             <Icon size={24} weight="thin" />

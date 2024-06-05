@@ -6,9 +6,11 @@ import EmptyCard from '../components/LecturerComponents/EmptyCard'
 import { useQuery } from '@tanstack/react-query'
 import * as CourseService from '../services/CourseService'
 import { jwtDecode } from 'jwt-decode'
+import { useNavigate } from 'react-router-dom'
 
 const Lecturer = () => {
-    const courseList = Array.from({ length: 23 }, (_, index) => index);
+    const navigate = useNavigate();
+    const [courseList, setCourseList] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 8;
 
@@ -27,7 +29,7 @@ const Lecturer = () => {
             const decoded = jwtDecode(storageData);
             // console.log(decoded);
             const res = await CourseService.getAll(decoded.id, storageData);
-            console.log(res);
+            // console.log(res);
             return res;
         } catch (error) {
             console.log(error);
@@ -35,11 +37,22 @@ const Lecturer = () => {
         }
     }
 
-    // const queryCourse = useQuery({ queryKey: ['courses'], queryFn: getAllCourses })
+    const queryCourse = useQuery({ queryKey: ['courses'], queryFn: getAllCourses })
+    const { isLoading: isLoadingCourses, data: dataCourses, error: errorCourses } = queryCourse
 
     useEffect(() => {
         getAllCourses()
+            .then(res => {
+                setCourseList(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }, [])
+
+    const goToCreateCourse = () => {
+        navigate('/lecturer/dashboard/add-course')
+    }
 
     return (
         <div className={`${courseList > 8 ? `sm:h-full` : `sm:h-svh`} sm:flex hidden bg-gradient-to-tr from-violet-400 to-sky-200 p-4 flex-col gap-2 `}>
@@ -50,7 +63,7 @@ const Lecturer = () => {
                     <span className='text-black sm:text-4xl text-2xl font-poppins uppercase px-4'>
                         Course List
                     </span>
-                    <button className=''>
+                    <button onClick={goToCreateCourse} className='hover:animate-spin-slow transition'>
                         <PlusSquare size={40} />
                     </button>
                 </div>
@@ -59,7 +72,7 @@ const Lecturer = () => {
             <div id="card-container" className='pt-2 px-8 justify-center items-center flex flex-wrap w-full h-[700px] gap-8 transition-all'>
                 {currentCourses.map((course, index) => (
                     <div className={`transition delay-[${index * 1000}ms]`} key={`${currentPage}-${index}`}>
-                        <CourseCard />
+                        <CourseCard course={course}/>
                     </div>
                 ))}
                 {currentPage === totalPages ? <div className='animate-fade'><EmptyCard /></div> : null}

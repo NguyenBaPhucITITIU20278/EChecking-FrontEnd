@@ -59,7 +59,7 @@ const LoginLecturer = () => {
 
     useEffect(() => {
         if (data?.status === "OK") {
-            navigate('/lecturer/home')
+            navigate('/lecturer/dashboard')
             message.success('Login Success')
             localStorage.setItem('accessToken', JSON.stringify(data?.accessToken))
             localStorage.setItem('role', 'lecturer');
