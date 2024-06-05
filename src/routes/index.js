@@ -53,7 +53,7 @@ export const routes = [
         page: DashboardLecturer,
     },
     {
-        path: '/student/quiz',
+        path: '/dashboard/:code',
         page: QuizPage,
         animatedBg: true,
         title: 'Student Dashboard',

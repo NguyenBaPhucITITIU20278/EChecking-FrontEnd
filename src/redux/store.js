@@ -1,5 +1,8 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import studentReducer from './slices/studentSlice'
+import lecturerReducer from './slices/lecturerSlice'
+import authReducer from './slices/authSlice'
+
 import {
     persistStore,
     persistReducer,
@@ -16,11 +19,13 @@ const persistConfig = {
     key: 'root',
     version: 1,
     storage,
-    blacklist: ['lecturer', 'student', 'counter']
+    blacklist: ['lecturer', 'student', 'counter', 'auth']
 }
 
 const rootReducer = combineReducers({
-    student: studentReducer
+    student: studentReducer,
+    lecturer: lecturerReducer,
+    auth: authReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

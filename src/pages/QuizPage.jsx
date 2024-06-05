@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Download, DownloadSimple, TrayArrowUp, X } from '@phosphor-icons/react'
-import BackgroundImage from '../assets/BGROUND.jpg'; // Import the background image
+import { TrayArrowUp, X } from '@phosphor-icons/react'
+import { message } from 'antd';
+import * as CourseService from '../services/CourseService';
+import { useParams } from 'react-router-dom';
+import * as AttendanceService from '../services/AttendanceService';
 
 
 const QuizPage = () => {
@@ -33,20 +36,57 @@ const QuizPage = () => {
         console.log(file);
     };
 
+    const { code } = useParams();
+
+    const [sessionCode, setSessionCode] = useState('');
+    const [sessionQuiz, setSessionQuiz] = useState(''); 
+    const [courseName, setCourseName] = useState('');
+
+    const fetchCourseName = async (id) => {
+        try {
+            const res = await CourseService.getCourseName(id);
+            if (res?.status === "OK") {
+                // console.log("Course res",res);
+                setCourseName(res.data);
+            } else if (res?.status === "ERR") {
+                message.error(res?.message);
+            }
+        } catch (error) {
+            // console.error("Error fetching course name:", error);
+        }
+    }
+
+    const fetchSession = async () => {
+        const res = await AttendanceService.getDetailsByCode(code);
+        if (res?.status === "OK") {
+            setSessionCode(code);
+            setSessionQuiz(res.data.quiz);
+            fetchCourseName(res.data.courseID);
+        } else if (res?.status === "ERR") {
+            message.error(res?.message);
+        }
+    }
+
+    useEffect(() => {
+        if (localStorage.getItem('accessToken')) {
+            fetchSession();
+        }
+    })
+
     return (
         <div className='flex justify-center sm:items-center h-max sm:w-full flex-col sm:py-0 py-2'>
             <div className={`sm:bg-white sm:bg-opacity-40 sm:w-[80%] sm:h-max rounded-2xl p-6`}>
                 <div className='flex flex-col sm:justify-center items-center p-4'>
                     <div className='font-poppins sm:text-2xl text-xl normal-case drop-shadow-2xl font-black'>
-                        Session Code
+                        {sessionCode ? sessionCode : 'Session Code'}
                     </div>
                     <div className='sm:flex font-poppins sm:text-4xl text-2xl normal-case drop-shadow-2xl text-white font-black text-stroke-black'>
-                        Course Name
+                        {courseName ? courseName : 'Course Name'}
                     </div>
                 </div>
                 <div className='flex p-6 bg-white sm:h-2/3 min-h-1/3 max-h-[400px] rounded-xl'>
                     <div className='sm:text-3xl text-base font-poppins text-justify text-ellipsis overflow-scroll'>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen bookorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. orem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. orem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                        {sessionQuiz ? sessionQuiz : 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen bookorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. orem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. orem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'}
                     </div>
                 </div>
                 <div className='flex sm:flex-row gap-4 justify-end p-4'>
