@@ -49,7 +49,7 @@ const LoginLecturer = () => {
 
     const dispatch = useDispatch()
     const handleGetDetailUser = async (id, token) => {
-        dispatch(login({ role: 'student' }));
+        dispatch(login({ role: 'lecturer' }));
         const res = await LecturerService.getDetailLecturer(id, token)
         dispatch(updateLecturer({ ...res?.data, accessToken: token }))
         console.log(res?.data)

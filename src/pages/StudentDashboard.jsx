@@ -1,29 +1,83 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CheckCircle } from '@phosphor-icons/react';
 import { Modal } from 'antd';
+import * as AttendanceService from '../services/AttendanceService';
+import * as CourseService from '../services/CourseService';
+import * as RecordService from '../services/RecordService';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const StudentDashboard = () => {
-  // const [pinCode, setPinCode] = useState('');
-  // const [showLabel, setShowLabel] = useState(true);
+  const [pinCode, setPinCode] = useState('');
+  const [sessionInfo, setSessionInfo] = useState('');
+  const [courseName, setCourseName] = useState('');
+  const [timeStamp, setTimeStamp] = useState('');
 
-  // const handlePinChange = (e) => {
-  //   setPinCode(e.target.value);
-  // };
+  const student = useSelector(state => state.student)
 
-  // const handleInputFocus = () => {
-  //   setShowLabel(false);
-  // };
+  const navigation = useNavigate();
+  const goToQuiz = () => {
+    navigation('/student/quiz');
+  }
 
-  // const handleInputBlur = () => {
-  //   if (pinCode === '') {
-  //     setShowLabel(true);
-  //   }
-  // };
-
-  const handleEnter = () => {
-    // console.log("Đã nhập mã pin:", pinCode);
-    showModal();
+  const handlePinChange = (e) => {
+    setPinCode(e.target.value);
+    // console.log(pinCode)
   };
+
+  const fetchCourseName = async (id) => {
+    try {
+      const res = await CourseService.getCourseName(id);
+      if (res?.status === "OK") {
+        // console.log("Course res",res);
+        setCourseName(res.data);
+        showModal();
+      }
+    } catch (error) {
+      console.error("Error fetching course name:", error);
+    }
+  }
+
+  const handleCreateRecord = async (sessionId) => {
+    try {
+      const res = await RecordService.createNormal(sessionId, { studentID: student.studentID });
+      console.log("Student: ", res)
+      console.log("StudentID: ", student.studentID);
+      if (res?.status === "OK") {
+        console.log("Record created: ", res);
+      }
+    } catch (error) {
+      console.error("Error creating record:", error);
+    }
+  }
+
+  const handleEnter = async () => {
+    // console.log("Pin entered: ", pinCode);
+    try {
+      const res = await AttendanceService.getDetailsByCode(pinCode);
+      if (res?.status === "OK") {
+        if (res?.data.type === "Normal") {
+          setSessionInfo(res);
+          // console.log("Session info: ", sessionInfo);
+
+          // Set timeStamp to the current date and time
+          const currentTime = new Date();
+          setTimeStamp(currentTime.toString());
+
+          // Fetch course name
+          fetchCourseName(res.data.courseID);
+
+          // Create record
+          handleCreateRecord(res.data._id);
+
+
+        } else if (res?.data.type === "Quiz") { goToQuiz() }
+      }
+    } catch (error) {
+      console.error("Error fetching details:", error);
+    }
+  };
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
@@ -33,6 +87,7 @@ const StudentDashboard = () => {
     setIsModalOpen(true);
   };
   const handleOk = () => {
+    setPinCode('');
     setIsModalOpen(false);
   };
   const handleCancel = () => {
@@ -72,6 +127,8 @@ const StudentDashboard = () => {
               maxLength="6"
               autoComplete="off"
               pattern='[A-Za-z0-9]{6}'
+              value={pinCode}
+              onChange={handlePinChange}
               className='font-poppins font-medium tracking-widest block w-full rounded-lg  p-1.5 text-gray-900 shadow-sm placeholder:text-gray-400 focus:outline-none focus:border-black focus:ring-1 focus:ring-black placeholder:flex placeholder:justify-center placeholder:items-center sm:text-xl sm:leading-6 text-center uppercase peer invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 ' />
             <span className="hidden text-sm text-red-500  peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
               Enter a correct pin with only 6 characters
@@ -91,16 +148,16 @@ const StudentDashboard = () => {
           </legend>
           <div className='sm:py-4 pb-4 flex flex-col justify-center items-center gap-2'>
             <div className='flex sm:flex-row flex-col justify-center items-center sm:text-lg text-xs font-montserrat leading-6 text-black'>
-              <span>Attendance roll call complete!</span>
+              <span>Attendance roll call complete!&nbsp;</span>
               <span>
-              You have been accounted for today's session
-              </span> 
+                You have been accounted for today's session
+              </span>
             </div>
             <div id="courseName" className='sm:text-4xl text-2xl uppercase font-montserrat'>
-              course name
+              {courseName}
             </div>
             <div id="timeStamp" className='sm:text-lg text-sm font-poppins'>
-              12:00 PM - 10/10/2021
+              {timeStamp}
             </div>
           </div>
           <div>
