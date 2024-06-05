@@ -6,6 +6,7 @@ import * as CourseService from '../services/CourseService';
 import * as RecordService from '../services/RecordService';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import * as message from '../components/MessageModal';
 
 const StudentDashboard = () => {
   const [pinCode, setPinCode] = useState('');
@@ -14,9 +15,11 @@ const StudentDashboard = () => {
   const [timeStamp, setTimeStamp] = useState('');
 
   const student = useSelector(state => state.student)
+  const auth = useSelector(state => state.auth)
 
   const navigation = useNavigate();
   const goToQuiz = () => {
+    message.success('Session found!')
     navigation('/student/quiz');
   }
 
@@ -32,22 +35,27 @@ const StudentDashboard = () => {
         // console.log("Course res",res);
         setCourseName(res.data);
         showModal();
+      } else if (res?.status === "ERR") {
+        message.error(res?.message);
       }
     } catch (error) {
-      console.error("Error fetching course name:", error);
+      // console.error("Error fetching course name:", error);
     }
   }
 
   const handleCreateRecord = async (sessionId) => {
     try {
       const res = await RecordService.createNormal(sessionId, { studentID: student.studentID });
-      console.log("Student: ", res)
-      console.log("StudentID: ", student.studentID);
+      // console.log("Student: ", res)
+      // console.log("StudentID: ", student.studentID);
       if (res?.status === "OK") {
-        console.log("Record created: ", res);
+        message.success('Record created!');
+        // console.log("Record created: ", res);
+      } else if (res?.status === "ERR") {
+        message.error(res?.message);
       }
     } catch (error) {
-      console.error("Error creating record:", error);
+      // console.error("Error creating record:", error);
     }
   }
 
@@ -70,11 +78,12 @@ const StudentDashboard = () => {
           // Create record
           handleCreateRecord(res.data._id);
 
-
         } else if (res?.data.type === "Quiz") { goToQuiz() }
+      } else if (res?.status === "ERR") {
+        message.error(res?.message);
       }
     } catch (error) {
-      console.error("Error fetching details:", error);
+      // console.error("Error fetching details:", error);
     }
   };
 
@@ -100,6 +109,12 @@ const StudentDashboard = () => {
     }
   };
 
+  useEffect(() => {
+    if (!auth.isAuthenticated && !localStorage.getItem('accessToken')) {
+      message.warning('Please login to continue');
+    }
+  }, []);
+
   return (
 
     <div className='flex justify-center items-center sm: h-full h-svg w-full flex-col bg-white bg-opacity-40 sm:bg-opacity-10'>
@@ -110,9 +125,9 @@ const StudentDashboard = () => {
       </div>
       <div className='sm:bg-white sm:bg-opacity-40 animate-fade-in sm:w-[400px] w-full sm:h-max h-full rounded-xl sm:p-8 px-6 pt-2 shadow-xl flex justify-center items-center'>
         <form action="#" noValidate className='flex-col flex gap-6 sm:w-full w-full items-center'>
-          <legend className='sm:hidden border-b shadow-xl border-black'>
+          <legend className='sm:hidden border-b border-black'>
             <div className=''>
-              <span className='font-poppins text-3xl uppercase drop-shadow-2xl text-white font-black text-stroke-black'>
+              <span className='font-poppins text-3xl uppercase text-white font-black text-stroke-black'>
                 Attendance Session
               </span>
             </div>

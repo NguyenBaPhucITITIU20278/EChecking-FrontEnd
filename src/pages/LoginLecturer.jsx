@@ -7,6 +7,8 @@ import { useDispatch } from 'react-redux'
 import { jwtDecode } from 'jwt-decode'
 import { updateLecturer } from '../redux/slices/lecturerSlice'
 import { login } from '../redux/slices/authSlice'
+import * as message from '../components/MessageModal'
+
 
 
 const LoginLecturer = () => {
@@ -45,30 +47,34 @@ const LoginLecturer = () => {
             lecturerPassword
         })
     }
-    
+
 
     const dispatch = useDispatch()
     const handleGetDetailUser = async (id, token) => {
         dispatch(login({ role: 'lecturer' }));
         const res = await LecturerService.getDetailLecturer(id, token)
         dispatch(updateLecturer({ ...res?.data, accessToken: token }))
-        console.log(res?.data)
+        // console.log(res?.data)
     }
 
     useEffect(() => {
         if (data?.status === "OK") {
             navigate('/lecturer/home')
+            message.success('Login Success')
             localStorage.setItem('accessToken', JSON.stringify(data?.accessToken))
-            console.log('test', data)
+            // console.log('test', data)
             if (data?.accessToken) {
                 const decoded = jwtDecode(data?.accessToken);
-                console.log('decoded', decoded)
+                // console.log('decoded', decoded)
                 if (decoded?.id) {
                     handleGetDetailUser(decoded?.id, data?.accessToken);
                 }
             }
+        } else if (data?.status === "Error") {
+            message.error(data?.message)
+        } else if (data?.status === "404") {
+            message.error
         }
-
     }, [data, isSuccess, isError])
 
 
