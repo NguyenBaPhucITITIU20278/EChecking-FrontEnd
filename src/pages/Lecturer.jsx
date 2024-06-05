@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BreadcrumbComponent from '../components/BreadcrumbComponent'
 import { PlusSquare } from '@phosphor-icons/react'
 import CourseCard from '../components/LecturerComponents/CourseCard'
 import EmptyCard from '../components/LecturerComponents/EmptyCard'
-import { calc } from 'antd/es/theme/internal'
+import { useQuery } from '@tanstack/react-query'
+import * as CourseService from '../services/CourseService'
+import { jwtDecode } from 'jwt-decode'
 
 const Lecturer = () => {
     const courseList = Array.from({ length: 23 }, (_, index) => index);
@@ -19,6 +21,25 @@ const Lecturer = () => {
         setCurrentPage(pageNumber);
     }
 
+    const getAllCourses = async () => {
+        try {
+            let storageData = JSON.parse(localStorage.getItem('accessToken'));
+            const decoded = jwtDecode(storageData);
+            // console.log(decoded);
+            const res = await CourseService.getAll(decoded.id, storageData);
+            console.log(res);
+            return res;
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    }
+
+    // const queryCourse = useQuery({ queryKey: ['courses'], queryFn: getAllCourses })
+
+    useEffect(() => {
+        getAllCourses()
+    }, [])
 
     return (
         <div className={`${courseList > 8 ? `sm:h-full` : `sm:h-svh`} sm:flex hidden bg-gradient-to-tr from-violet-400 to-sky-200 p-4 flex-col gap-2 `}>
