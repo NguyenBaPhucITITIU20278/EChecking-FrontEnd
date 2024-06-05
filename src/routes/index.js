@@ -37,26 +37,35 @@ export const routes = [
     },
     {
         
-        path: '/student/dashboard',
+        path: '/dashboard',
         page: StudentDashboard,
+        animatedBg: true,
+        title: 'Student Dashboard',
+        role: 'student',
+        header: true
     },
     {
         path: '/success',
-        page: StudentSuccess,
+        page: StudentSuccess, // remove
     },
     {
         path: '/lecturer/dashboard',
         page: DashboardLecturer,
     },
     {
-        path: '/student/quizpage',
+        path: '/student/quiz',
         page: QuizPage,
+        animatedBg: true,
+        title: 'Student Dashboard',
+        role: 'student',
+        header: true
     },
     {
-        path: '/student/dashboard',
-        page: DashboardStudent,
-        title: '404',
-        role: '404'
+        path: '/student',
+        page: DashboardStudent, // remove
+        title: 'Attendance',
+        role: 'student',
+        header: true
     },
     {
         path: '/lecturer/home',

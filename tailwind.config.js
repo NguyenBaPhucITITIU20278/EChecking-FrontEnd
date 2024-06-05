@@ -67,6 +67,7 @@ export default {
         gradient: "gradient 15s infinite",
         "fade-in": "fade-in 0.5s ease-out",
         fade: 'fadeIn .5s ease-in-out',
+        'spin-slow': 'spin 1s ease',
       },
       keyframes: {
         gradientA: {

@@ -1,54 +1,80 @@
-import React from 'react'
-import { DownloadSimple } from '@phosphor-icons/react'
+import React, { useEffect, useState } from 'react'
+import { Download, DownloadSimple, TrayArrowUp, X } from '@phosphor-icons/react'
 import BackgroundImage from '../assets/BGROUND.jpg'; // Import the background image
 
 
 const QuizPage = () => {
+    const [file, setFile] = useState(null);
+    const [fileName, setFileName] = useState('');
+
+
+    useEffect(() => {
+        if (file) {
+            const name = file.name;
+            const extension = name.split('.').pop();
+            const truncatedName = name.length > 15 ? name.substring(0, 15) + '...' : name;
+            setFileName(`${truncatedName}.${extension}`);
+        }
+    }, [file]);
+
+    const handleFileChange = (e) => {
+        const files = e.target.files?.[0];
+        if (files) {
+            setFile(files);
+        }
+    };
+
+    const removeFile = () => {
+        const fileNameElement = document.getElementById('fileNameElement');
+        if (fileNameElement) {
+            fileNameElement.innerText = 'Browse your file here';
+        }
+        setFile(null);
+        console.log(file);
+    };
+
     return (
-        <><div>QuizPage</div><div className='text-black' style={{
-            backgroundImage: `url(${BackgroundImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'bottom'
-        }}>
-            <div className="bg-white py-10 text-black text-center absolute top-0 left-0 w-full h-35 "></div>
-            <div className="relative z-10 flex justify-center items-center h-screen">
-                <div className="bg-white rounded-lg shadow-lg p-8 relative" style={{ width: '1300px', height: '650px', marginTop: '50px' }}>
-                    <div className="flex items-center mb-4">
-                        <h1 className="text-4xl font-palanquin mr-4">Assignment Information</h1>
-                        <div className="h-1 bg-black flex-grow"></div>
+        <div className='flex justify-center sm:items-center h-max sm:w-full flex-col sm:py-0 py-2'>
+            <div className={`sm:bg-white sm:bg-opacity-40 sm:w-[80%] sm:h-max rounded-2xl p-6`}>
+                <div className='flex flex-col sm:justify-center items-center p-4'>
+                    <div className='font-poppins sm:text-2xl text-xl normal-case drop-shadow-2xl font-black'>
+                        Session Code
                     </div>
-                    <div className="w-50 h-28 bg-gray-200 rounded ml-26 flex flex-col justify-center items-center" style={{ boxShadow: '0px 2px 4px rgba(0.5, 0.5, 0.5, 0.5)' }}>
-                        <p className="text-xl text-black  font-montserrat" style={{ marginBottom: '12px' }}>Imagine you're part of a software development team tasked with building an e-commerce platform for a client. The client wants a robust and scalable system that can handle many users, transactions, and product listings. As a team, you need to decide on the best approach for designing and implementing various system components while ensuring code reusability and applying design patterns where appropriate.</p>
-
-                    </div>
-                    {/* Content of the rounded rectangle */}
-                    <div className="h-1 mt-12 bg-black flex-grow mt-8"></div>
-                    <div className="flex items-center mb-4 mt-8">
-                        <h1 className="text-4xl font-palanquin mr-4">Assignment Submission</h1>
-                        <div className="h-0.5 bg-black flex-grow"></div>
-                    </div>
-                    <div className="flex justify-between items-center mt-4 ml-12">
-                        <div>
-                            <div className="text-xl text-gray-700 ml-24 font-montserrat">Attach File
-                            <DownloadSimple size={32} className=" ml-10" />
-                            </div>
-                            <button className="w-72 h-8 bg-gray-300 rounded flex flex-col justify-center items-center mt-4 ml-2 transform transition duration-300 hover:scale-105" style={{ boxShadow: '0px 2px 4px rgba(0.5, 0.5, 0.5, 0.5)' }}>
-                                <p className="text-lg text-black font-montserrat" style={{ marginBottom: '2px' }}>Browse Local Files</p>
-                            </button>
-                        </div>
-
-                        <div className="text-xl text-gray-700 mr-60 mb-10 font-montserrat">Uploaded File:</div>
-                    </div>
-                    <div className="h-0.5 bg-gray-300 flex-grow mt-14"></div>
-                    {/* Buttons */}
-                    <div className="absolute bottom-8 right-8 flex space-x-4">
-                        <button className="px-4 py-2 bg-white text-black rounded-full transform transition duration-300 hover:scale-105 font-montserrat" style={{ boxShadow: '0px 2px 4px rgba(0.5, 0.5, 0.5, 0.5)' }}>Cancel</button>
-                        <button className="px-4 py-2 bg-blue-500 text-white rounded-full transform transition duration-300 hover:scale-105 font-montserrat" style={{ boxShadow: '0px 2px 4px rgba(0.5, 0.5, 0.5, 0.5)' }}>Submit</button>
+                    <div className='sm:flex font-poppins sm:text-4xl text-2xl normal-case drop-shadow-2xl text-white font-black text-stroke-black'>
+                        Course Name
                     </div>
                 </div>
+                <div className='flex p-6 bg-white sm:h-2/3 min-h-1/3 max-h-[400px] rounded-xl'>
+                    <div className='sm:text-3xl text-base font-poppins text-justify text-ellipsis overflow-scroll'>
+                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen bookorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. orem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. orem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    </div>
+                </div>
+                <div className='flex sm:flex-row gap-4 justify-end p-4'>
+                    <div className='flex flex-row items-center sm:w-1/2 w-max'>
+                        <label htmlFor="dropzone-file" className="w-full group flex flex-row justify-between items-center gap-4 sm:border-2 rounded-xl hover:bg-blue-500 border hover:border-solid transition ease-in-out duration-500  border-dashed p-4 border-black ">
+                            <input id="dropzone-file" type="file" className="hidden" onChange={handleFileChange} />
+                            <div className="flex flex-row gap-4 items-center justify-center">
+                                <div className={`${file === null ? 'flex' : 'hidden'} text-sm sm:text-gray-500 text-black group-hover:text-white`}>
+                                    <TrayArrowUp size={32} />
+                                </div>
+                                <div className={`w-1/2 flex flex-row overflow-hidden text-xs sm:text-gray-500 text-black group-hover:text-white font-poppins transition ${file ? 'sm:overflow-visible overflow-ellipsis' : 'sm:overflow-visible overflow-hidden'} whitespace-nowrap`}>
+                                    {file ? (window.innerWidth > 640 ? file.name : fileName) : 'Browse your file here'}
+                                </div>
+                            </div>
 
+                            <button onClick={removeFile} className={`${file === null ? 'hidden' : 'flex'} border group-hover:border-white text-[#ed3833] border-[#ed3833] p-2 rounded-full group hover:scale-110`}>
+                                <X size={16} className='group-hover:text-white' />
+                            </button>
+                        </label>
+                    </div>
+                    <button className='border border-black sm:w-1/5  rounded-xl p-2  bg-white transition hover:bg-blue-500 ease-in-out duration-500 group'>
+                        <span className='sm:text-lg text-xs uppercase font-montserrat sm:text-gray-500 text-black font-black tracking-wider group-hover:text-white'>
+                            Submit
+                        </span>
+                    </button>
+                </div>
             </div>
-        </div></> 
+        </div>
     )
 }
 

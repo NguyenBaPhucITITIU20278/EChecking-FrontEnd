@@ -26,7 +26,7 @@ const AddCoursePage = () => {
     return (
         <>
             <div className='flex justify-center items-center sm:h-full h-svh w-full flex-col'>
-                <div className='animate-fade-in sm:w-[502px] w-full sm:h-[450px] h-full backdrop bg-white bg-opacity-40 rounded sm:p-3 px-6 pt-2  border border-gray-300 shadow-lg'>
+                <div className='animate-fade-in sm:w-[502px] w-full sm:h-[450px] h-full backdrop bg-white bg-opacity-30 rounded sm:p-3 px-6 pt-2  border border-gray-300 shadow-lg'>
                     <form action="#" className='space-y-2'>
                         <legend className='sm:hidden pt-10 pb-8 text-[28px] text-center font-montserrat text-gray-600 font-bold '>CREATE NEW CLASS</legend>
                         <label htmlFor="courseID" className="block sm:text-2xl text-xl font-montserrat leading-6 text-black">Course ID</label>
