@@ -1,8 +1,8 @@
 import React from 'react';
 import { Table } from 'antd';
-import { render } from 'react-dom';
+import * as RecordService from '../../services/RecordService';
 
-const TableComponent = () => {
+const TableComponent = ({ records }) => {
 
     const columns = [
         {
@@ -48,6 +48,26 @@ const TableComponent = () => {
         });
     }
 
+    records.map((record, index) => (
+        data.push({
+            key: index,
+            index: index,
+            studentId: record.studentId,
+            studentName: record.studentName,
+            joinAt: record.joinAt,
+            fileUpload: record.fileUpload,
+        })
+    ))
+
+    const fetchStudentInfo = async () => {
+        try {
+            const res = await RecordService.getAllRecord()
+            return res
+        } catch (error) {
+            console.log(error)
+            message.error('Failed to get records')
+        }
+    }
 
     const rowSelection = {
         onChange: (selectedRowKeys, selectedRows) => {

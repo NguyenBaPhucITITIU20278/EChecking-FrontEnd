@@ -1,26 +1,32 @@
-import BreadcrumbComponent from '../components/BreadcrumbComponent'
-import { ArrowsOut } from '@phosphor-icons/react'
-import TableComponent from '../components/SessionComponents/TableComponent'
+import BreadcrumbComponent from '../components/BreadcrumbComponent';
+import { ArrowsOut } from '@phosphor-icons/react';
+import TableComponent from '../components/SessionComponents/TableComponent';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import * as AttendanceService from '../services/AttendanceService';
-import { message } from 'antd';
-
+import * as RecordService from '../services/RecordService';
+import { jwtDecode } from 'jwt-decode';
+import * as message from '../components/MessageModal'
+import { useQuery } from '@tanstack/react-query';
 
 const SessionInfoPage = () => {
     const { session } = useParams();
     const [quiz, setQuiz] = useState('');
+    const [ sessionID, setSessionID ] = useState('')
 
     const fetchSession = async () => {
         const res = await AttendanceService.getDetailsByCode(session);
         if (res?.status === "OK") {
             setQuiz(res.data.quiz);
+            setSessionID(res.data._id)
         } else if (res?.status === "ERR") {
             message.error(res?.message);
         }
     }
     useEffect(() => {
         fetchSession();
+        fetchRecords()
+            
     }, []);
 
     const navigate = useNavigate();
@@ -28,6 +34,25 @@ const SessionInfoPage = () => {
     const handleReview = () => {
         navigate(`/lecturer/dashboard/${course}/${session}/review`)
     }
+
+    const fetchRecords =  () => {
+        try {
+            // let storageData = JSON.parse(localStorage.getItem('accessToken'));
+            // const decoded = jwtDecode(storageData)
+            // console.log('test', decoded)
+            const res = RecordService.getAllRecord(sessionID)
+            // console.log(res)
+            // console.log('test',dataRecords)
+            return res
+        } catch (error) {
+            console.log(error)   
+            message.error('Failed to get records')    
+        }
+    }
+
+    const queryRecord = useQuery({ queryKey: ['sessions'], queryFn: fetchRecords })
+    const { isLoading: isLoadingRecords, data: dataRecords, error: errorRecords } = queryRecord
+
 
     return (
         <div className={`sm:h-full h-svh bg-gradient-to-tr from-violet-400 to-sky-200`}>
@@ -65,7 +90,7 @@ const SessionInfoPage = () => {
                     </button>
                 </div> */}
                 <div id='table-container' className='pt-12 flex gap-8'>
-                    <TableComponent className='' />
+                    <TableComponent className='' records={dataRecords.data}/>
                 </div>
             </div>
         </div>

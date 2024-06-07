@@ -16,3 +16,8 @@ export const createNormal = async (sessionId, data) => {
     const res = await axios.post(`${API_URL}/record/createNormal/${sessionId}`, data)
     return res.data
 }
+
+export const getAllRecord = async (sessionId) => {
+    const res = await axios.get(`${API_URL}/record/getAll/${sessionId}`)
+    return res.data
+}
