@@ -20,6 +20,10 @@ const HeaderComponent = ({ title, role }) => {
         navigate('/' + role + 'Account')
     }
 
+    const goBack = () => {
+        navigate(-1) // Navigates back to the previous page
+    }
+
     useEffect(() => {
         if (localStorage.getItem('accessToken')) {
             setUserName(user?.firstName + ' ' + user?.lastName);
@@ -30,9 +34,9 @@ const HeaderComponent = ({ title, role }) => {
         <>
             <header className='bg-white w-full flex justify-between sm:px-6 lg:px-8 items-center align-middle shadow-xl border-b border-black'>
                 <div className='flex'>
-                    <a href="#" className='-m-1.5 p-1.5'>
+                    <button onClick={goBack} className='p-2'>
                         <img src={logo} alt="logo" className='w-auto h-20 items-center' />
-                    </a>
+                    </button>
                     <div className='hidden sm:flex flex-col gap-0.5 uppercase text-left justify-center font-poppins text-gray-500'>
                         <div className='text-lg uppercase'> {title} </div>
                         <div className='text-sm capitalize'> {role} </div>

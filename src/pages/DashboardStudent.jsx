@@ -27,6 +27,6 @@ const DashboardStudent = () => {
             </div>
         </>
     )
-}
+}   
 
 export default DashboardStudent;

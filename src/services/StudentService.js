@@ -21,3 +21,11 @@ export const getAllStudents = async () => {
     const res = await axios.get(`${API_URL}/student/getAll`)
     return res.data
 }
+export const updateStudent = async (id, data, accessToken) => {
+    const res = await axiosJWT.put(`${API_URL}/student/update/${id}`, data, {
+        headers: {
+            token: `Bearer ${accessToken}`,
+        }
+    })
+    return res.data
+}

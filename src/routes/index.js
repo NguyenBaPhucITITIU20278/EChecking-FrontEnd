@@ -13,6 +13,7 @@ import SessionInfoPage from "../pages/SessionInfoPage";
 import StudentAccount from "../pages/StudentAccount";
 import Lecturer from "../pages/Lecturer";
 import ReviewCode from "../pages/ReviewCode";
+import LecturerAccount from "../pages/lecturerAccount";
 
 export const routes = [
     {
@@ -114,5 +115,9 @@ export const routes = [
     {
         path: '/studentAccount',
         page: StudentAccount,
+    },
+    {
+        path: '/lecturerAccount',
+        page: LecturerAccount,
     }
 ]

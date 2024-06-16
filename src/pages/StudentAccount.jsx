@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Datepicker from "react-tailwindcss-datepicker";
 import avatar from "../assets/avatar.png";
+import Header from '../components/HeaderComponent'; 
 
 export default function StudentAccount() {
   const [inputName, setInputName] = useState("");
+  const [inputEmail, setInputEmail] = useState("");
   const [inputAddress, setInputAddress] = useState("");
   const [inputPhoneNumber, setInputPhoneNumber] = useState("");
   const [warning, setWarning] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [inputID, setInputID] = useState("");
   const [date, setDate] = useState({
     startDate: null,
   });
@@ -28,7 +31,12 @@ export default function StudentAccount() {
   const handleInputName = (event) => {
     setInputName(event.target.value);
   };
-
+  const handleInputEmail = (event) => {
+    setInputEmail(event.target.value);
+  };
+  const handleInputID = (event) => {
+    setInputID(event.target.value);
+  };
   const handleInputAddress = (event) => {
     setInputAddress(event.target.value);
   };
@@ -53,7 +61,7 @@ export default function StudentAccount() {
     }
   };
 
-  const checkValidInfomation = () => {
+  const checkValidInfomation = async () => {
     // Check Name
     const hasNameNumber = numberRegex.test(inputName);
     const hasNameSpecialChar = specialCharRegex.test(inputName);
@@ -78,6 +86,14 @@ export default function StudentAccount() {
       setWarning(true);
     } else {
       setConfirm(true);
+      // Assuming you have a student ID and token available
+      const studentData = {
+        name: inputName,
+        address: inputAddress,
+        phoneNumber: inputPhoneNumber,
+        dateOfBirth: date.startDate,
+      };
+      await updateStudent(studentId, studentData, token); // Replace `studentId` and `token` with actual values
     }
   };
 
@@ -112,9 +128,25 @@ export default function StudentAccount() {
       value == false ? true : false;
     });
   };
-
+  const updateStudent = async (id, studentData, token) => {
+    try {
+      const response = await StudentService.updateStudent(
+        id,
+        studentData,
+        token
+      );
+      if (response.success) {
+        console.log("Student updated successfully:", response.data);
+      } else {
+        console.error("Failed to update student:", response.message);
+      }
+    } catch (error) {
+      console.error("Error updating student:", error);
+    }
+  };
   return (
     <div>
+      <Header/> {/* Use the Header component */}
       {success && <Success setSuccess={refreshPage} />}
       {confirm && (
         <Confirm
@@ -127,7 +159,7 @@ export default function StudentAccount() {
       )}
       {warning && <Warning setWarning={controlWarning} />}
 
-      <nav className="h-24 w-full bg-gray-700 sm:bg-sky-700 md:bg-lime-500 lg:bg-red-500 2xl:bg-teal-600 xl:bg-orange-500"></nav>
+      
       <main className="h-dvh w-full bg-bg2 xl:px-48 bg-cover bg-no-repeat px-11">
         <div className="h-2/6 w-full static flex items-center justify-center">
           <img
@@ -138,47 +170,71 @@ export default function StudentAccount() {
         <div className="h-1/6 w-full static flex items-center justify-center text-center">
           <h1 className="xl:text-5xl font-bold text-4xl">Update Information</h1>
         </div>
-        <div className=" h-2/6 w-full static grid grid-cols-2 gap-x-32 items-center justify-items-center xl:px-32">
-          <div className="w-full h-full justify-center items-center flex flex-col">
-            <lable className="xl:text-3xl xl:m-5 self-start text-2xl m-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 mb-5">
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
               Full Name:
-            </lable>
+            </label>
             <input
               type="text"
-              placeholder="Fist-Middle-Last Name........................................."
-              className="bg-slate-100 xl:h-2/5 w-full xl:text-3xl p-2 border-2 border-black rounded-2xl hover:border-sky-500 focus-within:bg-white text-2xl h-1/3"
+              placeholder="First-Middle-Last Name"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               value={inputName}
               onChange={handleInputName}
-            ></input>
+            />
           </div>
-          <div className="w-full h-full justify-center items-center flex flex-col">
-            <p className="xl:text-3xl xl:m-5 self-start text-2xl m-3">
-              Phone Number:
-            </p>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Email:
+            </label>
+            <input
+              type="email"
+              placeholder="example@example.com"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={inputEmail}
+              onChange={handleInputEmail}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Student ID:
+            </label>
             <input
               type="text"
-              placeholder="10 Digits......................................................................"
-              className="bg-slate-100 xl:h-2/5 w-full xl:text-3xl p-2 border-2 border-black rounded-2xl hover:border-sky-500 focus-within:bg-white text-2xl h-1/3"
+              placeholder="Enter Student ID"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={inputID}
+              onChange={handleInputID}
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Phone Number:
+            </label>
+            <input
+              type="text"
+              placeholder="10 Digits"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               value={inputPhoneNumber}
               onChange={handleInputPhoneNumber}
-            ></input>
+            />
           </div>
-          <div className="w-full h-full justify-center items-center flex flex-col">
-            <p className="xl:text-3xl xl:m-5 self-start text-2xl m-3">
+          {/* <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
               Address:
-            </p>
+            </label>
             <input
               type="text"
-              placeholder="........................................................................................"
-              className="bg-slate-100 xl:h-2/5 w-full xl:text-3xl p-2 border-2 border-black rounded-2xl hover:border-sky-500 focus-within:bg-white text-2xl h-1/3"
+              placeholder="Address"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               value={inputAddress}
               onChange={handleInputAddress}
-            ></input>
-          </div>
-          <div className="w-full h-full justify-center items-center flex flex-col">
-            <p className="xl:text-3xl xl:m-5 self-start text-2xl m-3">
+            />
+          </div> */}
+          {/* <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">
               Date Of Birth:
-            </p>
+            </label>
             <Datepicker
               useRange={false}
               asSingle={true}
@@ -189,23 +245,23 @@ export default function StudentAccount() {
               popoverDirection="up"
               placeholder={"DD/MM/YYYY"}
               readOnly={true}
-              inputClassName="w-full xl:text-3xl text-2xl p-2 border-2 border-black rounded-2xl bg-slate-100 hover:border-sky-500 focus-within:bg-white"
-              toggleClassName="absolute bg-sky-500 rounded-r-2xl border-black border-2 text-white right-0 h-full px-3 text-gray-400 focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed hover:bg-sky-600"
+              inputClassName="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              toggleClassName="datepicker-toggle"
             />
-          </div>
+          </div> */}
         </div>
-        <div className="h-1/6 w-full static grid grid-cols-2 items-center">
+        <div className="h-1/6 w-full static flex flex-row items-center mt-[-70px] ml-40">
           <button
-            className="xl:w-1/3 w-1/2 h-2/5 bg-slate-300 rounded-2xl shadow-xl drop-shadow-xl flex items-center justify-center m-5 justify-self-start hover:bg-white transition ease-in-out hover:duration:300 focus:ring focus:ring-gray-100 active:bg-zinc-500 active:text-slate-50"
+            className="xl:w-1/3 w-1/2 h-2/5 bg-slate-300 rounded-2xl shadow-xl drop-shadow-xl flex items-center justify-center m-5 justify-self-start hover:bg-white transition ease-in-out hover:duration-300 focus:ring focus:ring-gray-100 active:bg-zinc-500 active:text-slate-50"
             onClick={checkPresentInfomation}
           >
             <p className="xl:text-3xl text-2xl">Cancel</p>
           </button>
           <button
-            className="xl:w-1/3 w-1/2 h-2/5 bg-sky-400 rounded-2xl shadow-xl drop-shadow-xl flex items-center justify-center m-5 justify-self-end hover:bg-white transition ease-in-out hover:duration:300 focus:ring focus:ring-gray-100 active:bg-sky-600 active:text-slate-50"
+            className="xl:w-1/3 w-1/2 h-2/5 bg-sky-400 rounded-2xl shadow-xl drop-shadow-xl flex items-center justify-center m-5 justify-self-end hover:bg-white transition ease-in-out hover:duration-300 focus:ring focus:ring-gray-100 active:bg-sky-600 active:text-slate-50"
             onClick={checkValidInfomation}
           >
-            <p className="xl:text-3xl text-2xl">Save Change</p>
+            <p className="xl:text-3xl text-2xl ">Save Change</p>
           </button>
         </div>
       </main>
